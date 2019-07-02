@@ -1,13 +1,15 @@
 set nocompatible
-filetype off
+" filetype off
 
 call plug#begin("~/.config/nvim/bundle")
  Plug 'MattesGroeger/vim-bookmarks'
- Plug 'craigemery/vim-autotag'
+ Plug 'udalov/kotlin-vim'
+ " Plug 'craigemery/vim-autotag'
  Plug 'tpope/vim-fugitive'
  Plug 'tpope/vim-rails'
  Plug 'tpope/vim-abolish'
- Plug 'majutsushi/tagbar'
+ " Plug 'majutsushi/tagbar'
+ Plug 'ludovicchabant/vim-gutentags'
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
  Plug 'sbdchd/neoformat'
@@ -16,7 +18,7 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'junegunn/fzf.vim'
  " typescript formatting
  Plug 'HerringtonDarkholme/yats.vim'
- Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'build': './install.sh' }
+ Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
  " grubox theme
  Plug 'morhetz/gruvbox'
  " code completion
@@ -61,9 +63,9 @@ call vimfiler#custom#profile('default', 'context', {
       \ })
 
 " window zooming
-noremap Zz :tabnew %<CR> 
-noremap Zo :q<CR>
- 
+nnoremap Zz <c-w>_ \| <c-w>\|
+nnoremap Zo <c-w>=
+
 " deoplete
 let g:deoplete#enable_at_startup = 1 
 
@@ -71,7 +73,7 @@ let g:deoplete#enable_at_startup = 1
 let mapleader = "_"
 
 " tag search
-set tags=./tags
+" set tags=./tags
 
 " open tag in another window 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
@@ -80,13 +82,16 @@ set tags=./tags
 " map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " option-t open tagbar
-nnoremap <C-t> :TagbarToggle<CR>
+" nnoremap <C-t> :TagbarToggle<CR>
 
 " unite file explorer
 nnoremap <C-e> :VimFiler<CR>
 
 " highlight search
 nnoremap <C-h> :set hlsearch!<CR>
+
+" buffers
+nnoremap <C-b> :Unite buffer<CR>
 
 " Move lines up and down
 nnoremap <S-Up> :m-2<CR>
@@ -123,9 +128,9 @@ nnoremap <leader>tt :!rake test %<CR>
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Tagbar settings
-let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
-let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+" let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+" let g:tagbar_autofocus=1
+" let g:tagbar_autoclose=1
 
 " deoplete   
 let g:deoplete#enable_at_startup = 1
@@ -147,8 +152,28 @@ set tabstop=2
 " when indenting with '>', use 4 spaces width
 set shiftwidth=2
 " On pressing tab, insert 4 spaces
-set expandtab
+" set expandtab
 
 " scheme
 colorscheme gruvbox
 set background=dark
+
+
+"statusline
+set statusline =
+" Buffer number
+set statusline +=[%n]
+" File description
+set statusline +=%f\ %h%m%r%w
+" Filetype
+set statusline +=%y                                                  
+" Name of the current function (needs taglist.vim)
+ set statusline +=\ [Fun(%{Tlist_Get_Tagname_By_Line()})]
+" Name of the current branch (needs fugitive.vim)
+set statusline +=\ %{fugitive#statusline()}
+" Date of the last time the file was saved
+set statusline +=\ %{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))} 
+" Total number of lines in the file
+set statusline +=%=%-10L
+" Line, column and percentage
+set statusline +=%=%-14.(%l,%c%V%)\ %P
