@@ -2,10 +2,13 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ Plug 'janko/vim-test'
  Plug 'MattesGroeger/vim-bookmarks'
  Plug 'udalov/kotlin-vim'
  " Plug 'craigemery/vim-autotag'
  Plug 'tpope/vim-fugitive'
+ Plug 'airblade/git-gutter'
+ Plug 'jez/vim-colors-solarized'
  Plug 'tpope/vim-rails'
  Plug 'tpope/vim-abolish'
  " Plug 'majutsushi/tagbar'
@@ -40,10 +43,22 @@ set completeopt-=preview
 set foldmethod=indent 
 set nofoldenable
 
+let test#strategy = "neovim"
+
+" tabs
+nnoremap <C-t> :tabclose<CR> 
+
+" test runner
+nnoremap t<C-n> :TestNearest<CR>
+nnoremap t<C-f> :TestFile<CR>
+nnoremap t<C-s> :TestSuite<CR>
+nnoremap t<C-l> :TestLast<CR>
+nnoremap t<C-g> :TestVisit<CR>
+
 " Plugin key-mappings.
-imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-j>     <Plug>(neosnippet_expand_target)
+imap <C-j> <Plug>(neosnippet_expand_or_jump)
+smap <C-j> <Plug>(neosnippet_expand_or_jump)
+xmap <C-j> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
@@ -101,7 +116,7 @@ inoremap <S-Down> <Esc>:m+<CR>
 
 " FZF
 nnoremap <C-p> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
+" nnoremap <C-b> :Buffers<CR>
 
 " rg in files
 command! -bang -nargs=* Rg
@@ -118,9 +133,9 @@ command! -bang -nargs=? -complete=dir Files
 nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 
 " rspec
-nnoremap <leader>rt :!rspec %<CR>
-nnoremap <leader>ra :!rake spec<CR>
-nnoremap <leader>tt :!rake test %<CR>
+" nnoremap <leader>rt :!rspec %<CR>
+" nnoremap <leader>ra :!rake spec<CR>
+" nnoremap <leader>tt :!rake test %<CR>
 
 " ultisnips
 " let g:UltiSnipsExpandTrigger="<tab>"
@@ -167,12 +182,12 @@ set statusline +=[%n]
 set statusline +=%f\ %h%m%r%w
 " Filetype
 set statusline +=%y                                                  
-" Name of the current function (needs taglist.vim)
- set statusline +=\ [Fun(%{Tlist_Get_Tagname_By_Line()})]
+" gutentag status 
+set statusline +=%{gutentags#statusline()}" 
 " Name of the current branch (needs fugitive.vim)
-set statusline +=\ %{fugitive#statusline()}
+set statusline +=\%{fugitive#statusline()}
 " Date of the last time the file was saved
-set statusline +=\ %{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))} 
+set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))} 
 " Total number of lines in the file
 set statusline +=%=%-10L
 " Line, column and percentage
