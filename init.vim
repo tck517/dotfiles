@@ -2,12 +2,19 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ Plug 'cohama/lexima.vim'
+ Plug 'junegunn/limelight.vim'
+ Plug 'shime/vim-livedown'
+ Plug 'junegunn/seoul256.vim'
+ Plug 'junegunn/goyo.vim'
+ Plug 'dart-lang/dart-vim-plugin'
+ Plug 'thosakwe/vim-flutter'
  Plug 'janko/vim-test'
  Plug 'MattesGroeger/vim-bookmarks'
  Plug 'udalov/kotlin-vim'
  " Plug 'craigemery/vim-autotag'
  Plug 'tpope/vim-fugitive'
- Plug 'airblade/git-gutter'
+ " Plug 'airblade/git-gutter'
  Plug 'jez/vim-colors-solarized'
  Plug 'tpope/vim-rails'
  Plug 'tpope/vim-abolish'
@@ -35,6 +42,15 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
+
+
+" flutter
+nnoremap f<C-r> :FlutterRun<cr>
+nnoremap f<C-q> :FlutterQuit<cr>
+nnoremap f<C-h> :FlutterHotReload<cr>
+nnoremap f<C-b> :FlutterHotRestart<cr>
+nnoremap f<C-d> :FlutterVisualDebug<cr>
+
 
 " scratch preview
 set completeopt-=preview
@@ -174,7 +190,7 @@ colorscheme gruvbox
 set background=dark
 
 
-"statusline
+" statusline
 set statusline =
 " Buffer number
 set statusline +=[%n]
@@ -192,3 +208,55 @@ set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
 set statusline +=%=%-10L
 " Line, column and percentage
 set statusline +=%=%-14.(%l,%c%V%)\ %P
+
+" limelight
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = '#282828'
+let g:limelight_conceal_ctermfg = 235
+
+" Color name (:help gui-colors) or RGB color
+" let g:limelight_conceal_guifg = 'bg'
+" let g:limelight_conceal_guifg = '#282828'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()

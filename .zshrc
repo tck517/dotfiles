@@ -8,6 +8,13 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+# hub completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+FPATH=(~/.zsh/completions $fpath) 
+autoload -U compinit && compinit
+
 #JAVA STUFF
 # export JAVA_HOME=/Users/theodorekim/.sdkman/candidates/java/current
 
