@@ -2,6 +2,7 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ Plug 'reedes/vim-pencil'
  Plug 'cohama/lexima.vim'
  Plug 'junegunn/limelight.vim'
  Plug 'shime/vim-livedown'
@@ -56,13 +57,13 @@ nnoremap f<C-d> :FlutterVisualDebug<cr>
 set completeopt-=preview
 
 " fold
-set foldmethod=indent 
+set foldmethod=indent
 set nofoldenable
 
 let test#strategy = "neovim"
 
 " tabs
-nnoremap <C-t> :tabclose<CR> 
+nnoremap <C-t> :tabclose<CR>
 
 " test runner
 nnoremap t<C-n> :TestNearest<CR>
@@ -98,7 +99,7 @@ nnoremap Zz <c-w>_ \| <c-w>\|
 nnoremap Zo <c-w>=
 
 " deoplete
-let g:deoplete#enable_at_startup = 1 
+let g:deoplete#enable_at_startup = 1
 
 " mapleader
 let mapleader = "_"
@@ -106,7 +107,7 @@ let mapleader = "_"
 " tag search
 " set tags=./tags
 
-" open tag in another window 
+" open tag in another window
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 
 " open tag in vertical split
@@ -116,7 +117,7 @@ let mapleader = "_"
 " nnoremap <C-t> :TagbarToggle<CR>
 
 " unite file explorer
-nnoremap <C-e> :VimFiler<CR>
+nnoremap <C-e> :VimFilerExplorer<CR>
 
 " highlight search
 nnoremap <C-h> :set hlsearch!<CR>
@@ -163,7 +164,7 @@ nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 " let g:tagbar_autofocus=1
 " let g:tagbar_autoclose=1
 
-" deoplete   
+" deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni_patterns = {}
 let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
@@ -171,11 +172,16 @@ let g:deoplete#sources = {}
 let g:deoplete#sources._ = []
 let g:deoplete#file#enable_buffer_path = 1
 
-" neoformat 
-augroup tsfmt 
+" neoformat
+augroup fmt
   autocmd!
- autocmd BufWritePre * Neoformat
+ autocmd BufWritePre * undojoin | Neoformat
 augroup END
+
+"augroup dartfmt
+"  autocmd!
+"  autocmd BufWritePre * DartFmt
+"augroup END
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -197,13 +203,13 @@ set statusline +=[%n]
 " File description
 set statusline +=%f\ %h%m%r%w
 " Filetype
-set statusline +=%y                                                  
-" gutentag status 
-set statusline +=%{gutentags#statusline()}" 
+set statusline +=%y
+" gutentag status
+set statusline +=%{gutentags#statusline()}"
 " Name of the current branch (needs fugitive.vim)
 set statusline +=\%{fugitive#statusline()}
 " Date of the last time the file was saved
-set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))} 
+set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
 " Total number of lines in the file
 set statusline +=%=%-10L
 " Line, column and percentage
@@ -243,7 +249,6 @@ function! s:goyo_enter()
   set noshowcmd
   set scrolloff=999
   Limelight
-  " ...
 endfunction
 
 function! s:goyo_leave()
@@ -255,8 +260,42 @@ function! s:goyo_leave()
   set showcmd
   set scrolloff=5
   Limelight!
-  " ...
 endfunction
 
+" fix deoplete match message
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
+
+" limelight
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+" goyo
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" show whitespace
+highlight RedundantSpaces ctermbg=red guibg=red 
+match RedundantSpaces /\s\+$/
