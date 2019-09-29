@@ -2,6 +2,7 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ Plug 'FuDesign2008/mermaidViewer.vim'
  Plug 'reedes/vim-pencil'
  Plug 'cohama/lexima.vim'
  Plug 'junegunn/limelight.vim'
@@ -87,6 +88,7 @@ let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/neosnips'
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_expand_jump_to_first_child = 1
 
 " Enable file operation commands.
 " Edit file by tabedit.
@@ -117,7 +119,8 @@ let mapleader = "_"
 " nnoremap <C-t> :TagbarToggle<CR>
 
 " unite file explorer
-nnoremap <C-e> :VimFilerExplorer<CR>
+nnoremap <C-e> :VimFiler<CR>
+nnoremap <C-x> :VimFilerExplorer<CR>
 
 " highlight search
 nnoremap <C-h> :set hlsearch!<CR>
@@ -295,6 +298,9 @@ let g:limelight_priority = -1
 " goyo
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" mermaid
+autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
 
 " show whitespace
 highlight RedundantSpaces ctermbg=red guibg=red 
