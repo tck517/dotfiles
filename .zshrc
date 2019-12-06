@@ -156,3 +156,6 @@ alias rake="noglob rake"
 [[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
