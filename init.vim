@@ -34,13 +34,13 @@ call plug#begin("~/.config/nvim/bundle")
  " grubox theme
  Plug 'morhetz/gruvbox'
  " code completion
- if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
- else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
- endif
+" if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+" endif
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
@@ -176,15 +176,15 @@ let g:deoplete#sources._ = []
 let g:deoplete#file#enable_buffer_path = 1
 
 " neoformat
-augroup fmt
-  autocmd!
- autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" augroup fmt
+"   autocmd!
+"  autocmd BufWritePre * undojoin | Neoformat
+" augroup END
 
-"augroup dartfmt
-"  autocmd!
-"  autocmd BufWritePre * DartFmt
-"augroup END
+augroup dartfmt
+  autocmd!
+  autocmd BufWritePre *.dart DartFmt
+augroup END
 
 filetype plugin indent on
 " show existing tab with 4 spaces width

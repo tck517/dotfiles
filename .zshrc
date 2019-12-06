@@ -143,10 +143,10 @@ alias rake="noglob rake"
 # eval "$(rbenv init -)"
 
 # Added by ./setup
-PATH=/Users/theodorekim/.gem/ruby/2.3.0/bin:$PATH
+#PATH=/Users/theodorekim/.gem/ruby/2.3.0/bin:$PATH
 
 # Added by ./setup
-PATH=.bundle/bin:$PATH
+#PATH=.bundle/bin:$PATH
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
