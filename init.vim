@@ -2,45 +2,50 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+" markdown previewers
  Plug 'FuDesign2008/mermaidViewer.vim'
- Plug 'reedes/vim-pencil'
- Plug 'cohama/lexima.vim'
- Plug 'junegunn/limelight.vim'
  Plug 'shime/vim-livedown'
- Plug 'junegunn/seoul256.vim'
+ " autoclose parentheses
+ Plug 'cohama/lexima.vim'
+ " writing
  Plug 'junegunn/goyo.vim'
+ Plug 'reedes/vim-pencil'
+ Plug 'junegunn/limelight.vim'
+" themes
+ Plug 'morhetz/gruvbox'
+ Plug 'junegunn/seoul256.vim'
+ Plug 'jez/vim-colors-solarized'
+ " flutter and dart
  Plug 'dart-lang/dart-vim-plugin'
  Plug 'thosakwe/vim-flutter'
+ " test runner
  Plug 'janko/vim-test'
+ " bookmarks
  Plug 'MattesGroeger/vim-bookmarks'
- Plug 'udalov/kotlin-vim'
- " Plug 'craigemery/vim-autotag'
+ " git
  Plug 'tpope/vim-fugitive'
- " Plug 'airblade/git-gutter'
- Plug 'jez/vim-colors-solarized'
+ " rails and ruby
  Plug 'tpope/vim-rails'
- Plug 'tpope/vim-abolish'
- " Plug 'majutsushi/tagbar'
+ " tags
+ Plug 'craigemery/vim-autotag'
+ Plug 'majutsushi/tagbar'
  Plug 'ludovicchabant/vim-gutentags'
+ " file management
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
- Plug 'sbdchd/neoformat'
+ " formatting
+ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+ " Plug 'sbdchd/neoformat'
+ " file templates
  Plug 'tibabit/vim-templates'
+ " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  " typescript formatting
+ Plug 'Quramy/tsuquyomi'
  Plug 'HerringtonDarkholme/yats.vim'
- Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
- " grubox theme
- Plug 'morhetz/gruvbox'
- " code completion
-" if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-" endif
+ Plug 'leafgarland/typescript-vim'
+ " snippets
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
@@ -116,7 +121,7 @@ let mapleader = "_"
 " map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " option-t open tagbar
-" nnoremap <C-t> :TagbarToggle<CR>
+nnoremap <C-t> :TagbarToggle<CR>
 
 " unite file explorer
 nnoremap <C-e> :VimFiler<CR>
@@ -176,15 +181,15 @@ let g:deoplete#sources._ = []
 let g:deoplete#file#enable_buffer_path = 1
 
 " neoformat
-" augroup fmt
-"   autocmd!
-"  autocmd BufWritePre * undojoin | Neoformat
-" augroup END
+ " augroup fmt
+ "   autocmd!
+ "  autocmd BufWritePre * undojoin | Neoformat
+ " augroup END
 
-augroup dartfmt
-  autocmd!
-  autocmd BufWritePre *.dart DartFmt
-augroup END
+" augroup dartfmt
+"   autocmd!
+"   autocmd BufWritePre *.dart DartFmt
+" augroup END
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -243,6 +248,8 @@ let g:limelight_eop = '\ze\n^\s'
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
+nnoremap <Leader>l <Plug>(Limelight)
+
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
@@ -300,8 +307,30 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " mermaid
-autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
+" autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
 
 " show whitespace
-highlight RedundantSpaces ctermbg=red guibg=red 
+highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
+
+let g:tagbar_type_typescript = {
+  \ 'ctagsbin' : 'tstags',
+  \ 'ctagsargs' : '-f-',
+  \ 'kinds': [
+    \ 'e:enums:0:1',
+    \ 'f:function:0:1',
+    \ 't:typealias:0:1',
+    \ 'M:Module:0:1',
+    \ 'I:import:0:1',
+    \ ':interface:0:1',
+    \ 'C:class:0:1',
+    \ 'm:method:0:1',
+    \ 'p:property:0:1',
+    \ 'v:variable:0:1',
+    \ 'c:const:0:1',
+  \ ],
+  \ 'sort' : 0
+\ }
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.ts,*.js,*.json,*.css,*.scss,*.less,*.graphql Prettier

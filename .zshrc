@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+#: If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 
@@ -9,11 +9,11 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
 # hub completions
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-FPATH=(~/.zsh/completions $fpath) 
-autoload -U compinit && compinit
+#if type brew &>/dev/null; then
+#  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+#fi
+#FPATH=(~/.zsh/completions $fpath)
+#autoload -U compinit && compinit
 
 #JAVA STUFF
 # export JAVA_HOME=/Users/theodorekim/.sdkman/candidates/java/current
@@ -111,7 +111,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # intellij home
-# export  INTELLIJ_HOME="/Applications/IntelliJ IDEA.app/Contents"  
+# export  INTELLIJ_HOME="/Applications/IntelliJ IDEA.app/Contents" 
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/Library/android/sdk/tools:$HOME/.rvm/bin:$INTELLIJ_HOME/bin"
@@ -138,7 +138,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # export path="$home/.fastlane/bin:$path"
 
-alias rake="noglob rake"
+# alias rake="noglob rake"
 
 # eval "$(rbenv init -)"
 
@@ -150,12 +150,13 @@ alias rake="noglob rake"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+#[[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+#[[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"

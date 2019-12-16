@@ -1,26 +1,26 @@
 snippet     describe
-alias       spec-describe 
-abbr        describe('', () => {}); 
+alias       spec-describe
+abbr        describe('', () => {});
 options     word
-  describe('${1:#:Desc}', (${2:#:Args}) => { 
-    ${0:#:Target} 
+  describe('${1:#:Desc}', (${2:#:Args}) => {
+    ${0:#:Target}
   });
 
 snippet     it
 alias       spec-it
 abbr        it('', () => {});
 options     word
-  it('${1:#:Desc}', (${2:#:Args}) => { 
-    ${0:#:Target} 
+  it('${1:#:Desc}', (${2:#:Args}) => {
+    ${0:#:Target}
   });
 
-snippet     assert-fail 
-alias       spec-fail 
+snippet     assert-fail
+alias       spec-fail
   assert.fail('not-implemented');
 
 snippet     expect
 alias       spec-expect-equal
-abbr        expect().to.equal(); 
+abbr        expect().to.equal();
   expect(${1:#:Actual}).to.equal(${0:#:Expected});
 
 snippet     before-each
