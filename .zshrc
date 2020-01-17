@@ -1,5 +1,5 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/bin:/usr/local/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 
 # Make python 3 the default
@@ -77,7 +77,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -111,7 +111,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # intellij home
-# export  INTELLIJ_HOME="/Applications/IntelliJ IDEA.app/Contents" 
+# export  INTELLIJ_HOME="/Applications/IntelliJ IDEA.app/Contents"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/Library/android/sdk/tools:$HOME/.rvm/bin:$INTELLIJ_HOME/bin"
@@ -158,5 +158,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+export GH_USER=tck517@yahoo.com
+export GH_PASS=244e283e115110f98642e7634e7db976c6c91082

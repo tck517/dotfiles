@@ -2,8 +2,11 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
-" markdown previewers
- Plug 'FuDesign2008/mermaidViewer.vim'
+ " code review
+ Plug 'AGHost-7/critiq.vim'
+ " mermaid viewer
+ " Plug 'FuDesign2008/mermaidViewer.vim'
+ " makrkdown preview
  Plug 'shime/vim-livedown'
  " autoclose parentheses
  Plug 'cohama/lexima.vim'
@@ -27,13 +30,13 @@ call plug#begin("~/.config/nvim/bundle")
  " rails and ruby
  Plug 'tpope/vim-rails'
  " tags
- Plug 'craigemery/vim-autotag'
- Plug 'majutsushi/tagbar'
  Plug 'ludovicchabant/vim-gutentags'
+ Plug 'majutsushi/tagbar'
  " file management
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
  " formatting
+ Plug 'dense-analysis/ale'
  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
  " Plug 'sbdchd/neoformat'
  " file templates
@@ -42,9 +45,9 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  " typescript formatting
- Plug 'Quramy/tsuquyomi'
- Plug 'HerringtonDarkholme/yats.vim'
- Plug 'leafgarland/typescript-vim'
+" Plug 'Quramy/tsuquyomi'
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'leafgarland/typescript-vim'
  " snippets
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
@@ -63,8 +66,8 @@ nnoremap f<C-d> :FlutterVisualDebug<cr>
 set completeopt-=preview
 
 " fold
-set foldmethod=indent
-set nofoldenable
+" set foldmethod=syntax
+" set nofoldenable
 
 let test#strategy = "neovim"
 
@@ -102,17 +105,14 @@ call vimfiler#custom#profile('default', 'context', {
       \ })
 
 " window zooming
-nnoremap Zz <c-w>_ \| <c-w>\|
-nnoremap Zo <c-w>=
+" nnoremap Zz <c-w>_ \| <c-w>\|
+" nnoremap Zo <c-w>=
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
 " mapleader
 let mapleader = "_"
-
-" tag search
-" set tags=./tags
 
 " open tag in another window
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
@@ -128,7 +128,7 @@ nnoremap <C-e> :VimFiler<CR>
 nnoremap <C-x> :VimFilerExplorer<CR>
 
 " highlight search
-nnoremap <C-h> :set hlsearch!<CR>
+nnoremap <C-n> :set hlsearch!<CR>
 
 " buffers
 nnoremap <C-b> :Unite buffer<CR>
@@ -168,9 +168,9 @@ nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Tagbar settings
-" let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
-" let g:tagbar_autofocus=1
-" let g:tagbar_autoclose=1
+let g:Tlist_Ctags_Cmd='/usr/local/cellar/universal-ctags/HEAD-68da03a/bin/ctags'
+let g:tagbar_autofocus=1
+let g:tagbar_autoclose=1
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -197,7 +197,7 @@ set tabstop=2
 " when indenting with '>', use 4 spaces width
 set shiftwidth=2
 " On pressing tab, insert 4 spaces
-" set expandtab
+set expandtab
 
 " scheme
 colorscheme gruvbox
@@ -213,7 +213,7 @@ set statusline +=%f\ %h%m%r%w
 " Filetype
 set statusline +=%y
 " gutentag status
-set statusline +=%{gutentags#statusline()}"
+" set statusline +=%{gutentags#statusline()}"
 " Name of the current branch (needs fugitive.vim)
 set statusline +=\%{fugitive#statusline()}
 " Date of the last time the file was saved
@@ -313,24 +313,19 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
-let g:tagbar_type_typescript = {
-  \ 'ctagsbin' : 'tstags',
-  \ 'ctagsargs' : '-f-',
-  \ 'kinds': [
-    \ 'e:enums:0:1',
-    \ 'f:function:0:1',
-    \ 't:typealias:0:1',
-    \ 'M:Module:0:1',
-    \ 'I:import:0:1',
-    \ ':interface:0:1',
-    \ 'C:class:0:1',
-    \ 'm:method:0:1',
-    \ 'p:property:0:1',
-    \ 'v:variable:0:1',
-    \ 'c:const:0:1',
-  \ ],
-  \ 'sort' : 0
-\ }
+" let g:prettier#autoformat = 0
+" let g:prettier#config#single_quote = 'true'
+" autocmd BufWritePre *.ts,*.js,*.json,*.css,*.scss,*.less,*.graphql Prettier
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['tslint'],
+\}
+let g:ale_fix_on_save = 1
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.ts,*.js,*.json,*.css,*.scss,*.less,*.graphql Prettier
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" gutentags
+" let g:gutentags_trace = 1
