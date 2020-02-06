@@ -4,7 +4,7 @@ export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/bin:/usr/
 
 # Make python 3 the default
 #:alias python2="/usr/bin/python"
-
+alias be='bundle exec'
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -162,4 +162,4 @@ export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 export GH_USER=tck517@yahoo.com
-export GH_PASS=244e283e115110f98642e7634e7db976c6c91082
+export GH_PASS=2f27fafe8306856ef507fd477608b88d8f3391a2

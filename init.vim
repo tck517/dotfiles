@@ -2,6 +2,8 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " status line
+ Plug 'vim-airline/vim-airline'
  " code review
  Plug 'AGHost-7/critiq.vim'
  " mermaid viewer
@@ -30,8 +32,8 @@ call plug#begin("~/.config/nvim/bundle")
  " rails and ruby
  Plug 'tpope/vim-rails'
  " tags
- Plug 'ludovicchabant/vim-gutentags'
- Plug 'majutsushi/tagbar'
+ " Plug 'ludovicchabant/vim-gutentags'
+ " Plug 'majutsushi/tagbar'
  " file management
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
@@ -204,24 +206,24 @@ colorscheme gruvbox
 set background=dark
 
 
-" statusline
-set statusline =
-" Buffer number
-set statusline +=[%n]
-" File description
-set statusline +=%f\ %h%m%r%w
-" Filetype
-set statusline +=%y
-" gutentag status
-" set statusline +=%{gutentags#statusline()}"
-" Name of the current branch (needs fugitive.vim)
-set statusline +=\%{fugitive#statusline()}
-" Date of the last time the file was saved
-set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
-" Total number of lines in the file
-set statusline +=%=%-10L
-" Line, column and percentage
-set statusline +=%=%-14.(%l,%c%V%)\ %P
+"" statusline
+"set statusline =
+"" Buffer number
+"set statusline +=[%n]
+"" File description
+"set statusline +=%f\ %h%m%r%w
+"" Filetype
+"set statusline +=%y
+"" gutentag status
+"" set statusline +=%{gutentags#statusline()}"
+"" Name of the current branch (needs fugitive.vim)
+"set statusline +=\%{fugitive#statusline()}
+"" Date of the last time the file was saved
+"set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
+"" Total number of lines in the file
+"set statusline +=%=%-10L
+"" Line, column and percentage
+"set statusline +=%=%-14.(%l,%c%V%)\ %P
 
 " limelight
 " Color name (:help cterm-colors) or ANSI code
@@ -236,7 +238,7 @@ let g:limelight_conceal_ctermfg = 235
 let g:limelight_default_coefficient = 0.7
 
 " Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 1
+let g:limelight_paragraph_span = 2
 
 " Beginning/end of paragraph
 "   When there's no empty line between the paragraphs
@@ -320,7 +322,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['tslint'],
 \}
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
