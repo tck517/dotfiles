@@ -2,14 +2,26 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " themes
+ Plug 'nightsense/seagrey'
+ " completion
+ Plug 'neoclide/coc.nvim'
+ " surround
+ Plug 'tpope/vim-surround'
+ " outlining
+ Plug 'lifepillar/vim-outlaw'
+ " sneak
+ Plug 'justinmk/vim-sneak'
+ " markdown
+ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+ " vimwiki
+ Plug 'vimwiki/vimwiki'
  " status line
  Plug 'vim-airline/vim-airline'
  " code review
  Plug 'AGHost-7/critiq.vim'
  " mermaid viewer
- " Plug 'FuDesign2008/mermaidViewer.vim'
- " makrkdown preview
- Plug 'shime/vim-livedown'
+ Plug 'FuDesign2008/mermaidViewer.vim'
  " autoclose parentheses
  Plug 'cohama/lexima.vim'
  " writing
@@ -23,6 +35,8 @@ call plug#begin("~/.config/nvim/bundle")
  " flutter and dart
  Plug 'dart-lang/dart-vim-plugin'
  Plug 'thosakwe/vim-flutter'
+ Plug 'natebosch/vim-lsc'
+ Plug 'natebosch/vim-lsc-dart' 
  " test runner
  Plug 'janko/vim-test'
  " bookmarks
@@ -31,9 +45,6 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'tpope/vim-fugitive'
  " rails and ruby
  Plug 'tpope/vim-rails'
- " tags
- " Plug 'ludovicchabant/vim-gutentags'
- " Plug 'majutsushi/tagbar'
  " file management
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
@@ -55,7 +66,6 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
 
-
 " flutter
 nnoremap f<C-r> :FlutterRun<cr>
 nnoremap f<C-q> :FlutterQuit<cr>
@@ -63,20 +73,11 @@ nnoremap f<C-h> :FlutterHotReload<cr>
 nnoremap f<C-b> :FlutterHotRestart<cr>
 nnoremap f<C-d> :FlutterVisualDebug<cr>
 
-
 " scratch preview
 set completeopt-=preview
 
-" fold
-" set foldmethod=syntax
-" set nofoldenable
-
-let test#strategy = "neovim"
-
-" tabs
-nnoremap <C-t> :tabclose<CR>
-
 " test runner
+let test#strategy = "neovim"
 nnoremap t<C-n> :TestNearest<CR>
 nnoremap t<C-f> :TestFile<CR>
 nnoremap t<C-s> :TestSuite<CR>
@@ -106,24 +107,8 @@ call vimfiler#custom#profile('default', 'context', {
       \ 'safe' : 0,
       \ })
 
-" window zooming
-" nnoremap Zz <c-w>_ \| <c-w>\|
-" nnoremap Zo <c-w>=
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-
 " mapleader
 let mapleader = "_"
-
-" open tag in another window
-" nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
-
-" open tag in vertical split
-" map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-" option-t open tagbar
-nnoremap <C-t> :TagbarToggle<CR>
 
 " unite file explorer
 nnoremap <C-e> :VimFiler<CR>
@@ -164,66 +149,19 @@ nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 " nnoremap <leader>ra :!rake spec<CR>
 " nnoremap <leader>tt :!rake test %<CR>
 
-" ultisnips
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 " Tagbar settings
 let g:Tlist_Ctags_Cmd='/usr/local/cellar/universal-ctags/HEAD-68da03a/bin/ctags'
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = []
-let g:deoplete#file#enable_buffer_path = 1
-
-" neoformat
- " augroup fmt
- "   autocmd!
- "  autocmd BufWritePre * undojoin | Neoformat
- " augroup END
-
-" augroup dartfmt
-"   autocmd!
-"   autocmd BufWritePre *.dart DartFmt
-" augroup END
-
-filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=2
-" when indenting with '>', use 4 spaces width
-set shiftwidth=2
-" On pressing tab, insert 4 spaces
-set expandtab
+ augroup dartfmt
+   autocmd!
+   autocmd BufWritePre *.dart DartFmt
+ augroup END
 
 " scheme
 colorscheme gruvbox
 set background=dark
-
-
-"" statusline
-"set statusline =
-"" Buffer number
-"set statusline +=[%n]
-"" File description
-"set statusline +=%f\ %h%m%r%w
-"" Filetype
-"set statusline +=%y
-"" gutentag status
-"" set statusline +=%{gutentags#statusline()}"
-"" Name of the current branch (needs fugitive.vim)
-"set statusline +=\%{fugitive#statusline()}
-"" Date of the last time the file was saved
-"set statusline +=\%{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
-"" Total number of lines in the file
-"set statusline +=%=%-10L
-"" Line, column and percentage
-"set statusline +=%=%-14.(%l,%c%V%)\ %P
 
 " limelight
 " Color name (:help cterm-colors) or ANSI code
@@ -252,6 +190,7 @@ let g:limelight_priority = -1
 
 nnoremap <Leader>l <Plug>(Limelight)
 
+" goyo
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
@@ -260,7 +199,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
-  Limelight
+  SoftPencil 
 endfunction
 
 function! s:goyo_leave()
@@ -271,63 +210,106 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
-  Limelight!
+  SoftPencil
 endfunction
-
-" fix deoplete match message
-if has("patch-7.4.314")
-  set shortmess+=c
-endif
-
-" limelight
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" Default: 0.5
-let g:limelight_default_coefficient = 0.7
-
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 1
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
 
 " goyo
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" mermaid
-" autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
-
 " show whitespace
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
-" let g:prettier#autoformat = 0
-" let g:prettier#config#single_quote = 'true'
-" autocmd BufWritePre *.ts,*.js,*.json,*.css,*.scss,*.less,*.graphql Prettier
+"ale
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['tslint'],
 \}
-" let g:ale_fix_on_save = 1
+
+"mermaid
+autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
+au BufReadPost *.mmd set syntax=yaml
+
+" vimwiki
+let g:vimwiki_list = [{'path':'~/projects', 'syntax':'markdown', 'ext': '.md' }]
+autocmd FileType vimwiki set ft=markdown
+
+" sneak
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" gutentags
-" let g:gutentags_trace = 1
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=2
+" when indenting with '>', use 4 spaces width
+set shiftwidth=2
+" On pressing tab, insert 4 spaces
+set expandtab
+
+" LSC
+let g:lsc_auto_map = v:true
+let g:lsc_server_commands = {'dart': 'dart_language_server'}
+
+let g:lsc_auto_map = {
+    \ 'GoToDefinition': '<C-]>',
+    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+    \ 'FindReferences': 'gr',
+    \ 'NextReference': '<C-j>',
+    \ 'PreviousReference': '<C-k>',
+    \ 'FindImplementations': 'gI',
+    \ 'FindCodeActions': 'ga',
+    \ 'Rename': 'gR',
+    \ 'ShowHover': v:true,
+    \ 'DocumentSymbol': 'go',
+    \ 'WorkspaceSymbol': 'gS',
+    \ 'SignatureHelp': 'gm',
+    \ 'Completion': 'completefunc',
+    \}
+
+" coc
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+"
+"" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+"
+"" Symbol renaming.
+"nmap <leader>rn <Plug>(coc-rename)
+"
+"" Formatting selected code.
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+
+"flutter
+nnoremap <leader>fa :FlutterRun<cr>
+nnoremap <leader>fq :FlutterQuit<cr>
+nnoremap <leader>fr :FlutterHotReload<cr>
+nnoremap <leader>fR :FlutterHotRestart<cr>
+nnoremap <leader>fD :FlutterVisualDebug<cr>
+
+"zoom
+nnoremap Zz <c-w>_ \| <c-w>\|
+nnoremap Zo <c-w>=
+
+syntax on
+noswapfile

@@ -162,4 +162,8 @@ export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 export GH_USER=tck517@yahoo.com
-export GH_PASS=2f27fafe8306856ef507fd477608b88d8f3391a2
+export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
+
+#Start OktaAWS
+source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
+#End OktaAWS
