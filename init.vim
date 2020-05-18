@@ -2,6 +2,8 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " tmuxnavigator
+ Plug 'christoomey/vim-tmux-navigator'
  " themes
  Plug 'nightsense/seagrey'
  " completion
@@ -15,7 +17,7 @@ call plug#begin("~/.config/nvim/bundle")
  " markdown
  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
  " vimwiki
- Plug 'vimwiki/vimwiki'
+ " Plug 'vimwiki/vimwiki'
  " status line
  Plug 'vim-airline/vim-airline'
  " code review
@@ -85,9 +87,9 @@ nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
 " Plugin key-mappings.
-imap <C-j> <Plug>(neosnippet_expand_or_jump)
-smap <C-j> <Plug>(neosnippet_expand_or_jump)
-xmap <C-j> <Plug>(neosnippet_expand_target)
+" imap <C-j> <Plug>(neosnippet_expand_or_jump)
+" smap <C-j> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-j> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
@@ -239,10 +241,10 @@ autocmd FileType vimwiki set ft=markdown
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -260,8 +262,6 @@ let g:lsc_auto_map = {
     \ 'GoToDefinition': '<C-]>',
     \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
     \ 'FindReferences': 'gr',
-    \ 'NextReference': '<C-j>',
-    \ 'PreviousReference': '<C-k>',
     \ 'FindImplementations': 'gI',
     \ 'FindCodeActions': 'ga',
     \ 'Rename': 'gR',
