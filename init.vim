@@ -69,11 +69,11 @@ call plug#begin("~/.config/nvim/bundle")
 call plug#end()
 
 " flutter
-nnoremap f<C-r> :FlutterRun<cr>
-nnoremap f<C-q> :FlutterQuit<cr>
-nnoremap f<C-h> :FlutterHotReload<cr>
-nnoremap f<C-b> :FlutterHotRestart<cr>
-nnoremap f<C-d> :FlutterVisualDebug<cr>
+"nnoremap f<C-r> :FlutterRun<cr>
+"nnoremap f<C-q> :FlutterQuit<cr>
+"nnoremap f<C-h> :FlutterHotReload<cr>
+"nnoremap f<C-b> :FlutterHotRestart<cr>
+"nnoremap f<C-d> :FlutterVisualDebug<cr>
 
 " scratch preview
 set completeopt-=preview
