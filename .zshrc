@@ -1,7 +1,7 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
-
+# export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
 #:alias python2="/usr/bin/python"
 alias be='bundle exec'
@@ -165,5 +165,5 @@ export GH_USER=tck517@yahoo.com
 export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
 
 #Start OktaAWS
-source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
+# source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
