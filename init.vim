@@ -2,6 +2,10 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " csv
+ Plug 'mechatroner/rainbow_csv'
+ " db
+ Plug 'vim-scripts/dbext.vim'
  " tmuxnavigator
  Plug 'christoomey/vim-tmux-navigator'
  " themes
@@ -37,8 +41,8 @@ call plug#begin("~/.config/nvim/bundle")
  " flutter and dart
  Plug 'dart-lang/dart-vim-plugin'
  Plug 'thosakwe/vim-flutter'
- Plug 'natebosch/vim-lsc'
- Plug 'natebosch/vim-lsc-dart' 
+ " Plug 'natebosch/vim-lsc'
+ " Plug 'natebosch/vim-lsc-dart' 
  " test runner
  Plug 'janko/vim-test'
  " bookmarks
@@ -255,22 +259,22 @@ set shiftwidth=2
 set expandtab
 
 " LSC
-let g:lsc_auto_map = v:true
-let g:lsc_server_commands = {'dart': 'dart_language_server'}
+" let g:lsc_auto_map = v:true
+" let g:lsc_server_commands = {'dart': 'dart_language_server'}
 
-let g:lsc_auto_map = {
-    \ 'GoToDefinition': '<C-]>',
-    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-    \ 'FindReferences': 'gr',
-    \ 'FindImplementations': 'gI',
-    \ 'FindCodeActions': 'ga',
-    \ 'Rename': 'gR',
-    \ 'ShowHover': v:true,
-    \ 'DocumentSymbol': 'go',
-    \ 'WorkspaceSymbol': 'gS',
-    \ 'SignatureHelp': 'gm',
-    \ 'Completion': 'completefunc',
-    \}
+" let g:lsc_auto_map = {
+"    \ 'GoToDefinition': '<C-]>',
+"    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+"    \ 'FindReferences': 'gr',
+"    \ 'FindImplementations': 'gI',
+"    \ 'FindCodeActions': 'ga',
+"    \ 'Rename': 'gR',
+"    \ 'ShowHover': v:true,
+"    \ 'DocumentSymbol': 'go',
+"    \ 'WorkspaceSymbol': 'gS',
+"    \ 'SignatureHelp': 'gm',
+"    \ 'Completion': 'completefunc',
+"    \}
 
 " coc
 " GoTo code navigation.
@@ -310,6 +314,12 @@ nnoremap <leader>fD :FlutterVisualDebug<cr>
 "zoom
 nnoremap Zz <c-w>_ \| <c-w>\|
 nnoremap Zo <c-w>=
+
+"dbext
+let g:dbext_default_prompt_for_parameters=1
+let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
+let g:dbext_default_profile_mysql_stage_clare = 'type=MYSQL:user=clare_acct:passwd=Uaaw8fR8UVwphE7RR3bmWMT62bPL6v6CNka48ZYx:host=clare-devdb.sn-ops.com:dbname=clare_accounting'
+let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=tst_db:passwd=jMcXvTeb26rA9A7KjwWx3sY92a7Jt37NdCfDfVzY:host=ngin-surveys-devdb.sn-ops.com:dbname=ngin'
 
 syntax on
 noswapfile
