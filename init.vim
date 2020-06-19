@@ -16,12 +16,6 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'tpope/vim-surround'
  " outlining
  Plug 'lifepillar/vim-outlaw'
- " sneak
- Plug 'justinmk/vim-sneak'
- " markdown
- Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
- " vimwiki
- " Plug 'vimwiki/vimwiki'
  " status line
  Plug 'vim-airline/vim-airline'
  " code review
@@ -58,26 +52,13 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'dense-analysis/ale'
  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
  " Plug 'sbdchd/neoformat'
- " file templates
- Plug 'tibabit/vim-templates'
  " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
- " typescript formatting
-" Plug 'Quramy/tsuquyomi'
-" Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'leafgarland/typescript-vim'
  " snippets
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
-
-" flutter
-"nnoremap f<C-r> :FlutterRun<cr>
-"nnoremap f<C-q> :FlutterQuit<cr>
-"nnoremap f<C-h> :FlutterHotReload<cr>
-"nnoremap f<C-b> :FlutterHotRestart<cr>
-"nnoremap f<C-d> :FlutterVisualDebug<cr>
 
 " scratch preview
 set completeopt-=preview
@@ -91,9 +72,9 @@ nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
 " Plugin key-mappings.
-" imap <C-j> <Plug>(neosnippet_expand_or_jump)
-" smap <C-j> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-j> <Plug>(neosnippet_expand_target)
+imap <C-j> <Plug>(neosnippet_expand_or_jump)
+smap <C-j> <Plug>(neosnippet_expand_or_jump)
+xmap <C-j> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
@@ -155,15 +136,10 @@ nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 " nnoremap <leader>ra :!rake spec<CR>
 " nnoremap <leader>tt :!rake test %<CR>
 
-" Tagbar settings
-let g:Tlist_Ctags_Cmd='/usr/local/cellar/universal-ctags/HEAD-68da03a/bin/ctags'
-let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
-
- augroup dartfmt
-   autocmd!
-   autocmd BufWritePre *.dart DartFmt
- augroup END
+augroup dartfmt
+  autocmd!
+  autocmd BufWritePre *.dart DartFmt
+augroup END
 
 " scheme
 colorscheme gruvbox
@@ -237,19 +213,6 @@ let g:ale_fixers = {
 autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
 au BufReadPost *.mmd set syntax=yaml
 
-" vimwiki
-let g:vimwiki_list = [{'path':'~/projects', 'syntax':'markdown', 'ext': '.md' }]
-autocmd FileType vimwiki set ft=markdown
-
-" sneak
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
-
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
-
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=2
@@ -258,26 +221,7 @@ set shiftwidth=2
 " On pressing tab, insert 4 spaces
 set expandtab
 
-" LSC
-" let g:lsc_auto_map = v:true
-" let g:lsc_server_commands = {'dart': 'dart_language_server'}
-
-" let g:lsc_auto_map = {
-"    \ 'GoToDefinition': '<C-]>',
-"    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-"    \ 'FindReferences': 'gr',
-"    \ 'FindImplementations': 'gI',
-"    \ 'FindCodeActions': 'ga',
-"    \ 'Rename': 'gR',
-"    \ 'ShowHover': v:true,
-"    \ 'DocumentSymbol': 'go',
-"    \ 'WorkspaceSymbol': 'gS',
-"    \ 'SignatureHelp': 'gm',
-"    \ 'Completion': 'completefunc',
-"    \}
-
 " coc
-" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -293,16 +237,16 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-"
-"" Highlight the symbol and its references when holding the cursor.
-"autocmd CursorHold * silent call CocActionAsync('highlight')
-"
-"" Symbol renaming.
-"nmap <leader>rn <Plug>(coc-rename)
-"
-"" Formatting selected code.
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 "flutter
 nnoremap <leader>fa :FlutterRun<cr>
