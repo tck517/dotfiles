@@ -2,6 +2,8 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " calendar
+ Plug 'itchyny/calendar.vim'
  " solargraph
  Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
