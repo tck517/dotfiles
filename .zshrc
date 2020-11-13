@@ -1,5 +1,5 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Android/sdk/emulator:$HOME/projects/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/Library/Android/sdk/emulator:$HOME/projects/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
@@ -167,3 +167,5 @@ export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
 #Start OktaAWS
 # source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
+
+export GOOGLE_MAPS_API_KEY=AIzaSyCYxj6_Cm4XmJWCx0B-xfoMUnshFXKdru8
