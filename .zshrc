@@ -1,9 +1,9 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Android/sdk/emulator:$HOME/projects/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
+export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
-#:alias python2="/usr/bin/python"
+alias python=python3
 alias be='bundle exec'
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -169,3 +169,6 @@ export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
 #End OktaAWS
 
 export GOOGLE_MAPS_API_KEY=AIzaSyCYxj6_Cm4XmJWCx0B-xfoMUnshFXKdru8
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"

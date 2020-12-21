@@ -62,7 +62,18 @@ call plug#begin("~/.config/nvim/bundle")
  " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
+ 
+
  " snippets
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+"endif
+
+ let g:deoplete#enable_at_startup = 1
  Plug 'Shougo/neosnippet.vim'
  Plug 'Shougo/neosnippet-snippets'
 call plug#end()
@@ -79,15 +90,20 @@ nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
 " Plugin key-mappings.
-imap <C-j> <Plug>(neosnippet_expand_or_jump)
-smap <C-j> <Plug>(neosnippet_expand_or_jump)
-xmap <C-j> <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
-\ pumvisible() ? "\<C-n>" :
-\ neosnippet#expandable_or_jumpable() ?
-\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/neosnips'
 
@@ -328,7 +344,6 @@ let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/Users/teddyk
 
 " cursor
 set guicursor=i:ver100-iCursor
-
 
 syntax on
 noswapfile
