@@ -2,8 +2,12 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
- " calendar
- Plug 'itchyny/calendar.vim'
+ " flattened theme
+ Plug 'romainl/flattened'
+ " todos
+ Plug 'Dimercel/todo-vim'
+ " gitgutter
+ Plug 'airblade/vim-gitgutter'
  " solargraph
  Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -79,9 +83,9 @@ nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
 " Plugin key-mappings.
-imap <C-j> <Plug>(neosnippet_expand_or_jump)
-smap <C-j> <Plug>(neosnippet_expand_or_jump)
-xmap <C-j> <Plug>(neosnippet_expand_target)
+imap <C-]> <Plug>(neosnippet_expand_or_jump)
+smap <C-]> <Plug>(neosnippet_expand_or_jump)
+xmap <C-]> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
@@ -321,7 +325,9 @@ nnoremap Zo <c-w>=
 let g:dbext_default_prompt_for_parameters=1
 let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
 let g:dbext_default_profile_mysql_stage_clare = 'type=MYSQL:user=clare_acct:passwd=Uaaw8fR8UVwphE7RR3bmWMT62bPL6v6CNka48ZYx:host=clare-devdb.sn-ops.com:dbname=clare_accounting'
-let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=tst_db:passwd=jMcXvTeb26rA9A7KjwWx3sY92a7Jt37NdCfDfVzY:host=ngin-surveys-devdb.sn-ops.com:dbname=ngin'
+let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=tst_db:passwd=jMcXvTeb26rA9A7KjwWx3sY92a7Jt37NdCfDfVzY:host=ngin-surveys-devdb.sn-ops.com:dbname=ngin_surveys_prod'
+let g:dbext_default_profile_mysql_local_ngin = 'type=MYSQL:host=localhost:port=33306:dbname=ngin_development_master'
+let g:dbext_default_profile_mysql_stage_programs = 'type=MYSQL:user=portal_user:passwd=c473H46L69iyWaBgBoczew7L6FrvYXYTL7LiVyGw:host=portal-devdb.sn-ops.com:dbname=portal_production'
 
 "dbext sqlite
 let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/Users/teddykim/projects/wingate/db/development.sqlite3'

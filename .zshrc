@@ -1,5 +1,5 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Android/sdk/emulator:$HOME/projects/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
+export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
@@ -8,6 +8,9 @@ alias be='bundle exec'
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+export REVIEW_BASE='main'
+
+alias h='hub'
 # hub completions
 #if type brew &>/dev/null; then
 #  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -45,7 +48,8 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
-
+export NVM_DIR="/Users/theodorekim/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -155,8 +159,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 #[[ -f /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/theodorekim/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -164,8 +168,14 @@ eval "$(rbenv init -)"
 export GH_USER=tck517@yahoo.com
 export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
 
+export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
 #Start OktaAWS
 # source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
 
-export GOOGLE_MAPS_API_KEY=AIzaSyCYxj6_Cm4XmJWCx0B-xfoMUnshFXKdru8
+
+# Added by ./setup
+PATH=/Users/theodorekim/.gem/ruby/2.6.0/bin:$PATH
+
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
+

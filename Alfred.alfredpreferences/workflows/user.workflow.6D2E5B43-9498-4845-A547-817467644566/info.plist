@@ -109,6 +109,28 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>angular</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>output</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>git</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>output</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>html</key>
 		<array>
 			<dict>
@@ -164,6 +186,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>typescript</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>output</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>underscore</key>
 		<array>
 			<dict>
@@ -175,7 +208,7 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>git</key>
+		<key>dart~2</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -500,6 +533,84 @@ require_once("scripts/conf.php");</string>
 				<key>escaping</key>
 				<integer>118</integer>
 				<key>keyword</key>
+				<string>angular</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}";
+$documentation = 'angular';
+require_once("scripts/devdocs.php");</string>
+				<key>subtext</key>
+				<string>Search for Angular "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Angular</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>angular</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>git</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}";
+$documentation = 'git';
+require_once("scripts/devdocs.php");</string>
+				<key>subtext</key>
+				<string>Search for Git "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Git</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>git</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
 				<string>html</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
@@ -695,6 +806,45 @@ require_once("scripts/devdocs.php");</string>
 				<key>escaping</key>
 				<integer>118</integer>
 				<key>keyword</key>
+				<string>typescript</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}";
+$documentation = 'typescript';
+require_once("scripts/devdocs.php");</string>
+				<key>subtext</key>
+				<string>Search for TypeScript "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - TypeScript</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>typescript</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
 				<string>underscore</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
@@ -734,7 +884,7 @@ require_once("scripts/devdocs.php");</string>
 				<key>escaping</key>
 				<integer>118</integer>
 				<key>keyword</key>
-				<string>git</string>
+				<string>dart~2</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -747,12 +897,12 @@ require_once("scripts/devdocs.php");</string>
 				<string>Searching for "{query}"</string>
 				<key>script</key>
 				<string>$query = "{query}";
-$documentation = 'git';
+$documentation = 'dart~2';
 require_once("scripts/devdocs.php");</string>
 				<key>subtext</key>
-				<string>Search for Git "{query}"</string>
+				<string>Search for Dart 2 "{query}"</string>
 				<key>title</key>
-				<string>DevDocs - Git</string>
+				<string>DevDocs - Dart 2</string>
 				<key>type</key>
 				<integer>1</integer>
 				<key>withspace</key>
@@ -761,7 +911,7 @@ require_once("scripts/devdocs.php");</string>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>git</string>
+			<string>dart~2</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -845,40 +995,55 @@ require_once("scripts/devdocs.php");</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
-		<key>html</key>
+		<key>angular</key>
 		<dict>
 			<key>ypos</key>
 			<real>730</real>
 		</dict>
-		<key>javascript</key>
+		<key>git</key>
 		<dict>
 			<key>ypos</key>
 			<real>840</real>
 		</dict>
-		<key>node</key>
+		<key>html</key>
 		<dict>
 			<key>ypos</key>
 			<real>950</real>
 		</dict>
-		<key>react</key>
+		<key>javascript</key>
 		<dict>
 			<key>ypos</key>
 			<real>1060</real>
 		</dict>
-		<key>react_native</key>
+		<key>node</key>
 		<dict>
 			<key>ypos</key>
 			<real>1170</real>
 		</dict>
-		<key>underscore</key>
+		<key>react</key>
 		<dict>
 			<key>ypos</key>
 			<real>1280</real>
 		</dict>
-		<key>git</key>
+		<key>react_native</key>
 		<dict>
 			<key>ypos</key>
 			<real>1390</real>
+		</dict>
+		<key>typescript</key>
+		<dict>
+			<key>ypos</key>
+			<real>1500</real>
+		</dict>
+		<key>underscore</key>
+		<dict>
+			<key>ypos</key>
+			<real>1610</real>
+		</dict>
+		<key>dart~2</key>
+		<dict>
+			<key>ypos</key>
+			<real>1720</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
