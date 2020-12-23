@@ -3,7 +3,7 @@ export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cach
 #source /usr/local/bin/virtualenvwrapper.sh
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
-#:alias python2="/usr/bin/python"
+alias python=python3
 alias be='bundle exec'
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -173,9 +173,10 @@ export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
 # source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
 
-
 # Added by ./setup
 PATH=/Users/theodorekim/.gem/ruby/2.6.0/bin:$PATH
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
 
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
