@@ -162,8 +162,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 export GH_USER=tck517@yahoo.com
 export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca

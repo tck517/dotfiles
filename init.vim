@@ -341,7 +341,7 @@ nnoremap Zo <c-w>=
 let g:dbext_default_prompt_for_parameters=1
 let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
 let g:dbext_default_profile_mysql_stage_clare = 'type=MYSQL:user=clare_acct:passwd=Uaaw8fR8UVwphE7RR3bmWMT62bPL6v6CNka48ZYx:host=clare-devdb.sn-ops.com:dbname=clare_accounting'
-let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=tst_db:passwd=jMcXvTeb26rA9A7KjwWx3sY92a7Jt37NdCfDfVzY:host=ngin-surveys-devdb.sn-ops.com:dbname=ngin_surveys_prod'
+let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=deploy:passwd=tzGYg46EaQD9pDX8go83KTUznBH66gBRz3PhR9VXc:host=ngin-devdb.sn-ops.com:dbname=ngin'
 let g:dbext_default_profile_mysql_local_ngin = 'type=MYSQL:host=localhost:port=33306:dbname=ngin_development_master'
 let g:dbext_default_profile_mysql_stage_programs = 'type=MYSQL:user=portal_user:passwd=c473H46L69iyWaBgBoczew7L6FrvYXYTL7LiVyGw:host=portal-devdb.sn-ops.com:dbname=portal_production'
 
