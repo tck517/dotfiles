@@ -12,6 +12,8 @@ import (
     "io/ioutil"
     "google.golang.org/protobuf/proto"
     "golang.org/x/text/unicode/norm"
+    "golang.org/x/text/search"
+    "golang.org/x/text/language"
     "unicode"
 
     _ "github.com/mattn/go-sqlite3"
@@ -19,28 +21,33 @@ import (
     notestore "github.com/sballin/alfred-search-notes-app/proto"
 )
 
+var matcher = search.New(language.Und, search.Loose)
+
 const (
     DbPath = "~/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite"
-
     TitleKey  = "title"
     SubtitleKey = "subtitle"
     ArgKey = "url"
     BodyKey = "noteBodyZipped"
     TableTextKey = "tableText"
-
-    NotesSQLTemplate = `
+    HashtagTextKey = "hashtagText"
+    NotesWithHashtagsSQLTemplate = `
 SELECT 
     noteTitle AS title,
     folderTitle AS subtitle,
-    'x-coredata://' || z_uuid || '/ICNote/p' || xcoreDataID AS url,
+    identifier || ',x-coredata://' || z_uuid || '/ICNote/p' || xcoreDataID || ',' || IFNULL('x-coredata://' || z_uuid || '/ICAccount/p' || accountID, 'null') AS url,
     noteBodyZipped,
-    tableText
+    tableText,
+    ocrText,
+    hashtagText
 FROM (
     SELECT
         c.ztitle1 AS noteTitle,
         c.zfolder AS noteFolderID,
         c.zmodificationdate1 AS modDate,
         c.z_pk AS xcoredataID,
+        c.zaccount3 AS accountID,
+        c.zidentifier AS identifier,
         n.zdata AS noteBodyZipped
     FROM 
         ziccloudsyncingobject AS c
@@ -72,6 +79,86 @@ LEFT JOIN (
     GROUP BY znote
 ) AS tables ON znote = xcoreDataID
 LEFT JOIN (
+    SELECT 
+        IFNULL(GROUP_CONCAT(zhandwritingsummary, ''), '') || IFNULL(GROUP_CONCAT(zocrsummary, ''), '') AS ocrText,
+        znote AS znoteOcr
+    FROM ziccloudsyncingobject
+    WHERE (zocrsummary IS NOT NULL OR
+           zhandwritingsummary IS NOT NULL) AND
+          zmarkedfordeletion != 1 
+    GROUP BY znoteOcr
+) AS ocrs ON znoteOcr = xcoreDataID
+LEFT JOIN (
+    SELECT 
+        GROUP_CONCAT(zalttext, ' ') AS hashtagText,
+        znote1
+    FROM ziccloudsyncingobject
+    WHERE ztypeuti1 = 'com.apple.notes.inlinetextattachment.hashtag'
+    GROUP BY znote1
+) AS hashtags ON znote1 = xcoreDataID
+LEFT JOIN (
+    SELECT z_uuid FROM z_metadata
+)
+ORDER BY %s
+`
+
+    NotesWithoutHashtagsSQLTemplate = `
+SELECT 
+    noteTitle AS title,
+    folderTitle AS subtitle,
+    identifier || ',x-coredata://' || z_uuid || '/ICNote/p' || xcoreDataID || ',' || IFNULL('x-coredata://' || z_uuid || '/ICAccount/p' || accountID, 'null') AS url,
+    noteBodyZipped,
+    tableText,
+    ocrText
+FROM (
+    SELECT
+        c.ztitle1 AS noteTitle,
+        c.zfolder AS noteFolderID,
+        c.zmodificationdate1 AS modDate,
+        c.z_pk AS xcoredataID,
+        c.zaccount3 AS accountID,
+        c.zidentifier AS identifier,
+        n.zdata AS noteBodyZipped
+    FROM 
+        ziccloudsyncingobject AS c
+        INNER JOIN zicnotedata AS n ON c.znotedata = n.z_pk -- note id (int) distinct from xcoredataID
+    WHERE 
+        noteTitle IS NOT NULL AND 
+        modDate IS NOT NULL AND
+        xcoredataID IS NOT NULL AND
+        noteBodyZipped IS NOT NULL AND
+        c.zmarkedfordeletion != 1
+) AS notes
+INNER JOIN (
+    SELECT
+        z_pk AS folderID,
+        ztitle2 AS folderTitle,
+        zfoldertype AS isRecentlyDeletedFolder
+    FROM ziccloudsyncingobject
+    WHERE 
+        folderTitle IS NOT NULL AND 
+        isRecentlyDeletedFolder != 1 AND
+        zmarkedfordeletion != 1 
+) AS folders ON noteFolderID = folderID
+LEFT JOIN (
+    SELECT 
+        GROUP_CONCAT(zsummary, '') AS tableText,
+        znote
+    FROM ziccloudsyncingobject
+    WHERE ztypeuti = 'com.apple.notes.table'
+    GROUP BY znote
+) AS tables ON znote = xcoreDataID
+LEFT JOIN (
+    SELECT 
+        IFNULL(GROUP_CONCAT(zhandwritingsummary, ''), '') || IFNULL(GROUP_CONCAT(zocrsummary, ''), '') AS ocrText,
+        znote AS znoteOcr
+    FROM ziccloudsyncingobject
+    WHERE (zocrsummary IS NOT NULL OR
+           zhandwritingsummary IS NOT NULL) AND
+          zmarkedfordeletion != 1 
+    GROUP BY znoteOcr
+) AS ocrs ON znoteOcr = xcoreDataID
+LEFT JOIN (
     SELECT z_uuid FROM z_metadata
 )
 ORDER BY %s
@@ -81,7 +168,7 @@ ORDER BY %s
 SELECT 
     ztitle2 AS title,
     '' AS subtitle,
-    'x-coredata://' || z_uuid || '/ICFolder/p' || z_pk AS url
+    zidentifier || ',x-coredata://' || z_uuid || '/ICFolder/p' || z_pk || ',' || IFNULL('x-coredata://' || z_uuid || '/ICAccount/p' || zaccount4, 'null') AS url
 FROM ziccloudsyncingobject
 LEFT JOIN (
     SELECT z_uuid FROM z_metadata
@@ -208,39 +295,51 @@ func GetNoteBody(noteBytes []byte) string {
     return body
 }
 
-func BuildSubtitleAddition(body string, bodyLower string, searchLower string) string {
-    subtitleAddition := " | …"
+func SubtitleMatchSummary(body string, search string) string {
+    matchSummary := " | …"
     i := 0
     j := 0
-    for i >= 0 && j >= 0 && len(subtitleAddition) < 400 {
-        j = strings.Index(bodyLower[i:], searchLower)
+    k := 0
+    for i >= 0 && j >= 0 && len(matchSummary) < 400 {
+        j, k = matcher.IndexString(body[i:], search)
         if j >= 0 {
             // Include context around match up to rb or next newline
-            rb := min(len(body), i+j+len(searchLower)+25)
+            rb := min(len(body), i+k+25)
             nextNewline := strings.Index(body[i+j:rb], "\n")
             if nextNewline > 0 {
                 rb = i+j+nextNewline
             }
             match := strings.ToValidUTF8(strings.Trim(body[i+j:rb], " "), "")
-            subtitleAddition += match + "…"
+            matchSummary += match + "…"
             i = rb
         }
     }
-    return subtitleAddition
+    return matchSummary
 }
 
 func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string, error) {    
     // Format SQL query
-    sqlQuery := fmt.Sprintf(NotesSQLTemplate, GetOrderPreference())
+    sqlQuery := fmt.Sprintf(NotesWithHashtagsSQLTemplate, GetOrderPreference())
     if scope == "folder" {
         sqlQuery = FoldersSQLTemplate
     }
     
     // Run query to get all results
+    gotHashtags := true
     results := []map[string]string{}
     rows, err := lite.db.Query(sqlQuery)
     if err != nil {
-        return results, err
+        if scope != "folder" && scope != "hashtag" {
+            // Retry without hashtag support for macOS < 11.4
+            gotHashtags = false
+            sqlQuery = fmt.Sprintf(NotesWithoutHashtagsSQLTemplate, GetOrderPreference())
+            rows, err = lite.db.Query(sqlQuery)
+            if err != nil {
+                return results, err
+            }
+        } else {
+            return results, err
+        }
     }
     defer rows.Close()
     cols, err := rows.Columns()
@@ -248,7 +347,6 @@ func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string,
         return results, err
     }
     
-    searchLower := strings.ToLower(search)
     searchFolders := false
     if (os.Getenv("searchFolders") != "0") {
         searchFolders = true
@@ -272,8 +370,23 @@ func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string,
             continue
         }
         
+        hashtagText, ok := "", false
+        // columnPointers[6] is out of bounds for "folder" case
+        if scope != "folder" && gotHashtags {
+            // Get text of any hashtags in this note
+            valHashtagText := columnPointers[6].(*interface{})
+            hashtagText, ok = (*valHashtagText).(string)
+            if !ok {
+                hashtagText = ""
+            }
+            // Add space for correct formatting of subtitle string
+            if hashtagText != "" {
+                hashtagText = " " + hashtagText
+            }
+        }
+        
         scopeText := ""
-        subtitleAddition := ""
+        matchSummary := ""
         if len(search) > 0 {
             // Add note/folder title to search scope
             valTitle := columnPointers[0].(*interface{})
@@ -281,7 +394,7 @@ func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string,
             if !ok {
                 continue
             }
-            scopeText = strings.ToLower(title)
+            scopeText = title
             if searchFolders == true {
                 // Add folder of note object to search scope (this field is empty for folder objects)
                 valFolder := columnPointers[1].(*interface{})
@@ -289,39 +402,61 @@ func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string,
                 if !ok {
                     folder = ""
                 }
-                scopeText += " " + strings.ToLower(folder)
+                scopeText += " " + folder
             }
-            if scope == "body" {
-                // Decompress note body data
-                valBody := columnPointers[3].(*interface{})
-                noteDataZippedBytes, ok := (*valBody).([]byte)
-                if ok {
-                    bytesReader.Reset(noteDataZippedBytes)
-                    errReset := gzipReader.Reset(bytesReader)
-                    if errReset == nil {
-                        noteBytes, errRead := ioutil.ReadAll(gzipReader)
-                        if errRead == nil {
-                            // Get plaintext of any tables in this note
-                            valTableText := columnPointers[4].(*interface{})
-                            tableText, ok := (*valTableText).(string)
-                            if !ok {
-                                tableText = ""
-                            }
-                            // Extract protobuf-format data from unzipped note and add table text
-                            body := GetNoteBody(noteBytes) + tableText
-                            bodyLower := strings.ToLower(body)
-                            // Add body text to search scope
-                            scopeText += " " + bodyLower
-                            // Prepare result summary for subtitle string
-                            if strings.Contains(bodyLower, searchLower) {
-                                subtitleAddition = BuildSubtitleAddition(body, bodyLower, searchLower)
+            if scope == "hashtag" {
+                // Return notes matching every hash tag provided
+                searchTags := strings.Split(search, " ")
+                containsSearchTag := true
+                for _, searchTag := range searchTags {
+                    firstMatch, _ := matcher.IndexString(hashtagText, "#" + searchTag)
+                    if firstMatch == -1 {
+                        containsSearchTag = false
+                    }
+                }
+                if !containsSearchTag {
+                    continue
+                }
+            } else {
+                if scope == "body" {
+                    // Decompress note body data
+                    valBody := columnPointers[3].(*interface{})
+                    noteDataZippedBytes, ok := (*valBody).([]byte)
+                    if ok {
+                        bytesReader.Reset(noteDataZippedBytes)
+                        errReset := gzipReader.Reset(bytesReader)
+                        if errReset == nil {
+                            noteBytes, errRead := ioutil.ReadAll(gzipReader)
+                            if errRead == nil {
+                                // Get plaintext of any tables in this note
+                                valTableText := columnPointers[4].(*interface{})
+                                tableText, ok := (*valTableText).(string)
+                                if !ok {
+                                    tableText = ""
+                                }
+                                // Get plaintext of any image OCRs in this note
+                                valOcrText := columnPointers[5].(*interface{})
+                                ocrText, ok := (*valOcrText).(string)
+                                if !ok {
+                                    ocrText = ""
+                                }
+                                // Extract protobuf-format data from unzipped note and add table text
+                                body := hashtagText + " " + GetNoteBody(noteBytes) + " " + tableText + " " + ocrText
+                                // Add body text to search scope
+                                scopeText += " " + body
+                                // Prepare result summary for subtitle string
+                                firstMatch, _ := matcher.IndexString(body, search)
+                                if firstMatch >= 0 {
+                                    matchSummary = SubtitleMatchSummary(body, search)
+                                }
                             }
                         }
                     }
                 }
-            }
-            if !strings.Contains(scopeText, searchLower) {
-                continue
+                firstMatch, _ := matcher.IndexString(scopeText, search)
+                if firstMatch == -1 {
+                    continue
+                }
             }
         }
         
@@ -340,7 +475,11 @@ func (lite LiteDB) GetResults(search string, scope string) ([]map[string]string,
                 m[colName] = ""
             }
         }
-        m[SubtitleKey] += subtitleAddition
+        
+        // Add additional text to subtitle string
+        m[SubtitleKey] += hashtagText
+        m[SubtitleKey] += matchSummary
+        
         results = append(results, m)
     }
     return results, err
@@ -350,8 +489,8 @@ func RowToItem(row map[string]string, userQuery UserQuery) alfred.Item {
     return alfred.Item{
         Title:        row[TitleKey],
         Subtitle:     row[SubtitleKey],
-        Arg:          row[ArgKey] + "?" + Escape(userQuery.WordString),
-        QuicklookURL: nil,
+        Arg:          row[ArgKey] + "," + Escape(userQuery.WordString),
+        QuicklookURL: " ",
     }
 }
 
@@ -403,10 +542,15 @@ func main() {
         searchRows, err := litedb.GetResults(userQuery.WordString, scope)
         PanicOnErr(err)
         
-        if (scope == "title" || scope == "body") && len(searchRows) == 0 {
+        if os.Getenv("fallbackCreateNew") == "1" && (scope == "title" || scope == "body") && len(searchRows) == 0 {
             createItem, err := CreateNoteItem(userQuery)
             PanicOnErr(err)
             alfred.Add(*createItem)
+        }
+        
+        if os.Getenv("fallbackSearchBody") == "1" && scope == "title" && len(searchRows) == 0 {
+            searchRows, err = litedb.GetResults(userQuery.WordString, "body")
+            PanicOnErr(err)
         }
         
         if len(searchRows) > 0 {

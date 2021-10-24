@@ -10,6 +10,7 @@ import os.path
 PROJECTS = ["https://sportngin.atlassian.net/browse/FNT",
             "https://sportngin.atlassian.net/browse/HQF",
             "https://sportngin.atlassian.net/browse/FPS",
+            "https://sportngin.atlassian.net/browse/DEVEX",
             "https://sportngin.atlassian.net/browse/ECOMM",
             "https://sportngin.atlassian.net/browse/PNR",
             "https://sportngin.atlassian.net/browse/FNT"]
