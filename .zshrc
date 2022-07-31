@@ -5,12 +5,15 @@ export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cach
 # Make python 3 the default
 alias python=python3
 alias be='bundle exec'
+alias cl='clear'
+alias tf='terraform'
+alias hb='hub'
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
 export REVIEW_BASE='main'
 
-alias h='hub'
 # hub completions
 #if type brew &>/dev/null; then
 #  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -176,7 +179,10 @@ export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
 # Added by ./setup
 PATH=/Users/theodorekim/.gem/ruby/2.6.0/bin:$PATH
 
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
+# export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
+
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"

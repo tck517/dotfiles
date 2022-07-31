@@ -177,7 +177,111 @@
 				  <false/>
 				</dict>
 			</array>
-			<key>rails~6.0</key>
+			<key>typescript</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>rails~6.1</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>javascript</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>express</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>cypress</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>vue~2</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>tailwindcss</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>jest</key>
+			<array>
+				<dict>
+					<key>destinationuid</key>
+					<string>output</string>
+					<key>modifiers</key>
+					<integer>0</integer>
+					<key>modifiersubtext</key>
+					<string></string>
+          <key>vitoclose</key>
+				  <false/>
+				</dict>
+			</array>
+			<key>dart~2</key>
 			<array>
 				<dict>
 					<key>destinationuid</key>
@@ -871,7 +975,7 @@
 				<key>escaping</key>
 				<integer>118</integer>
 				<key>keyword</key>
-				<string>rails~6.0</string>
+				<string>typescript</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -883,7 +987,7 @@
 				<key>runningsubtext</key>
 				<string>Searching for "{query}"</string>
 				<key>script</key>
-				<string>$query = "{query}"; $documentation = 'rails~6.0';
+				<string>$query = "{query}"; $documentation = 'typescript';
 					require_once("scripts/devdocs.php");
 				</string>
 				<key>scriptargtype</key>
@@ -891,9 +995,9 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Search for Ruby on Rails 6.0 "{query}"</string>
+				<string>Search for TypeScript "{query}"</string>
 				<key>title</key>
-				<string>DevDocs - Ruby on Rails 6.0</string>
+				<string>DevDocs - TypeScript</string>
 				<key>type</key>
 				<integer>1</integer>
 				<key>withspace</key>
@@ -902,7 +1006,415 @@
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>rails~6.0</string>
+			<string>typescript</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>rails~6.1</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'rails~6.1';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Ruby on Rails 6.1 "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Ruby on Rails 6.1</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>rails~6.1</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>javascript</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'javascript';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for JavaScript "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - JavaScript</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>javascript</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>express</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'express';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Express "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Express</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>express</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>cypress</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'cypress';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Cypress "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Cypress</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>cypress</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>vue~2</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'vue~2';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Vue.js 2 "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Vue.js 2</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>vue~2</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>tailwindcss</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'tailwindcss';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Tailwind CSS "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Tailwind CSS</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>tailwindcss</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>jest</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'jest';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Jest "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Jest</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>jest</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>keyword</key>
+				<string>dart~2</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>$query = "{query}"; $documentation = 'dart~2';
+					require_once("scripts/devdocs.php");
+				</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for Dart 2 "{query}"</string>
+				<key>title</key>
+				<string>DevDocs - Dart 2</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>dart~2</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -1023,12 +1535,68 @@
 			<key>ypos</key>
 			<integer>1305</integer>
 		</dict>
-		<key>rails~6.0</key>
+		<key>typescript</key>
 		<dict>
 			<key>ypos</key>
 			<integer>300</integer>
 			<key>ypos</key>
 			<integer>1435</integer>
+		</dict>
+		<key>rails~6.1</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>1565</integer>
+		</dict>
+		<key>javascript</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>1695</integer>
+		</dict>
+		<key>express</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>1825</integer>
+		</dict>
+		<key>cypress</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>1955</integer>
+		</dict>
+		<key>vue~2</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>2085</integer>
+		</dict>
+		<key>tailwindcss</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>2215</integer>
+		</dict>
+		<key>jest</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>2345</integer>
+		</dict>
+		<key>dart~2</key>
+		<dict>
+			<key>ypos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>2475</integer>
 		</dict>
 	</dict>
 	<key>variables</key>

@@ -2,10 +2,10 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
- " flattened theme
- Plug 'romainl/flattened'
- " todos
- Plug 'Dimercel/todo-vim'
+ " kotlin
+ Plug 'udalov/kotlin-vim'
+ " plantuml
+ Plug 'aklt/plantuml-syntax'
  " gitgutter
  Plug 'airblade/vim-gitgutter'
  " solargraph
@@ -13,20 +13,14 @@ call plug#begin("~/.config/nvim/bundle")
     \ 'branch': 'next',
     \ 'do': 'zsh install.sh',
     \ }
- " csv
- Plug 'mechatroner/rainbow_csv'
  " db
  Plug 'vim-scripts/dbext.vim'
  " tmuxnavigator
  Plug 'christoomey/vim-tmux-navigator'
- " themes
- Plug 'nightsense/seagrey'
  " completion
  Plug 'neoclide/coc.nvim'
  " surround
  Plug 'tpope/vim-surround'
- " outlining
- Plug 'lifepillar/vim-outlaw'
  " status line
  Plug 'vim-airline/vim-airline'
  " code review
@@ -46,10 +40,8 @@ call plug#begin("~/.config/nvim/bundle")
  " flutter and dart
  Plug 'dart-lang/dart-vim-plugin'
  Plug 'thosakwe/vim-flutter'
- " Plug 'natebosch/vim-lsc'
- " Plug 'natebosch/vim-lsc-dart' 
  " test runner
- Plug 'janko/vim-test'
+ Plug 'vim-test/vim-test'
  " bookmarks
  Plug 'MattesGroeger/vim-bookmarks'
  " git
@@ -59,14 +51,12 @@ call plug#begin("~/.config/nvim/bundle")
  " file management
  Plug 'shougo/unite.vim'
  Plug 'shougo/vimfiler.vim'
- " formatting
- Plug 'dense-analysis/ale'
- Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
- " Plug 'sbdchd/neoformat'
  " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
- 
+ " register
+ Plug 'junegunn/vim-peekaboo'
+
 
  " snippets
 "if has('nvim')
@@ -228,12 +218,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
-"ale
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['tslint'],
-\}
-
 "mermaid
 autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
 au BufReadPost *.mmd set syntax=yaml
@@ -251,6 +235,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent><expr> <c-space> coc#refresh()
+
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -276,7 +262,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType javascript,typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -307,8 +293,9 @@ omap ac <Plug>(coc-classobj-a)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" Add `:Prettier` command to format current buffer.
+" command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -350,6 +337,10 @@ let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/Users/teddyk
 
 " cursor
 set guicursor=i:ver100-iCursor
+
+" terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
 
 syntax on
 noswapfile
