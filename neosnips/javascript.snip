@@ -1,0 +1,61 @@
+snippet     context
+alias       spec-context
+abbr        context('', () => {});
+options     word
+  context("${1:#:Desc}", () => {
+    ${0:#:Target}
+  })
+
+
+snippet     describe
+alias       spec-describe
+abbr        describe('', () => {});
+options     word
+  describe("${1:#:Desc}", () => {
+    ${0:#:Target}
+  })
+
+snippet     it
+alias       spec-it
+abbr        it("" () => {});
+options     word
+  it("${1:#:Desc}", () => {
+    ${0:#:Target}
+  })
+
+snippet     assert-fail
+alias       spec-fail
+  assert.fail('not-implemented')
+
+snippet     expect
+alias       spec-expect-equal
+abbr        expect().to.equal();
+  expect(${1:#:Actual}).toBe(${0:#:Expected})
+
+snippet     bfe
+alias       spec-before-each
+abbr        beforeEach(() => {});
+  beforeEach(() => {
+    ${1:#:Target}
+  })
+
+snippet     bf
+alias       spec-before
+abbr        before(() => {});
+  before(() => {
+    ${1:#:Target}
+  })
+
+snippet     af
+alias       spec-after
+abbr        after(() => {});
+  after(() => {
+    ${1:#:Target}
+  })
+
+snippet     cyg
+alias       spec-cy-getter
+abbr        cy.get(selector)
+  function ${1:#Name}(cy) {
+    return cy.get("${0:Target}")
+  } 

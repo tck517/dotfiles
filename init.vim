@@ -83,6 +83,9 @@ nnoremap t<C-s> :TestSuite<CR>
 nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
+let g:test#javascript#runner = "jest"
+let test#project_root = "/Users/theodorekim/projects/gldmdl/src"
+
 " Plugin key-mappings.
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
