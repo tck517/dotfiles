@@ -57,20 +57,13 @@ call plug#begin("~/.config/nvim/bundle")
  " register
  Plug 'junegunn/vim-peekaboo'
 
-
- " snippets
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-
- let g:deoplete#enable_at_startup = 1
- Plug 'Shougo/neosnippet.vim'
- Plug 'Shougo/neosnippet-snippets'
+let g:deoplete#enable_at_startup = 1
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 call plug#end()
+
+" neosnippets
+let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/neosnips'
 
 " scratch preview
 set completeopt-=preview
@@ -84,7 +77,7 @@ nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
 let g:test#javascript#runner = "jest"
-let test#project_root = "/Users/theodorekim/projects/gldmdl/src"
+let test#project_root = "/Users/teddykim/projects/gldmdl/src"
 
 " Plugin key-mappings.
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -92,17 +85,16 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" imap <expr><TAB>
+"  \ pumvisible() ? "\<C-n>" :
+"  \ neosnippet#expandable_or_jumpable() ?
+"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/neosnips'
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
@@ -187,7 +179,7 @@ let g:limelight_bop = '^\s'
 let g:limelight_eop = '\ze\n^\s'
 
 " Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
+" Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
 " goyo
@@ -213,7 +205,6 @@ function! s:goyo_leave()
   SoftPencil
 endfunction
 
-" goyo
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
@@ -221,7 +212,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
-"mermaid
+" mermaid
 autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
 au BufReadPost *.mmd set syntax=yaml
 
@@ -306,6 +297,16 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
+" Use <C-n>, <C-p>, <up> and <down> to navigate completion list: >
+inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
+inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0) : "\<down>"
+inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0) : "\<up>"
+
+" Use <C-e> and <C-y> to cancel and confirm completion: >
+inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
+inoremap <silent><expr> <C-y> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
+
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
@@ -316,34 +317,32 @@ nnoremap <leader>co :CocList outline<cr>
 " nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 nnoremap <leader>cs :CocList -I symbols<cr>
 
-"flutter
-nnoremap <leader>fa :FlutterRun<cr>
-nnoremap <leader>fq :FlutterQuit<cr>
-nnoremap <leader>fr :FlutterHotReload<cr>
-nnoremap <leader>fR :FlutterHotRestart<cr>
-nnoremap <leader>fD :FlutterVisualDebug<cr>
+" flutter
+" nnoremap <leader>fa :FlutterRun<cr>
+" nnoremap <leader>fq :FlutterQuit<cr>
+" nnoremap <leader>fr :FlutterHotReload<cr>
+" nnoremap <leader>fR :FlutterHotRestart<cr>
+" nnoremap <leader>fD :FlutterVisualDebug<cr>
 
-"zoom
-nnoremap Zz <c-w>_ \| <c-w>\|
-nnoremap Zo <c-w>=
+" zoom
+" nnoremap Zz <c-w>_ \| <c-w>\|
+" nnoremap Zo <c-w>=
 
-"dbext mysql
-let g:dbext_default_prompt_for_parameters=1
-let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
-let g:dbext_default_profile_mysql_stage_clare = 'type=MYSQL:user=clare_acct:passwd=Uaaw8fR8UVwphE7RR3bmWMT62bPL6v6CNka48ZYx:host=clare-devdb.sn-ops.com:dbname=clare_accounting'
-let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=deploy:passwd=tzGYg46EaQD9pDX8go83KTUznBH66gBRz3PhR9VXc:host=ngin-devdb.sn-ops.com:dbname=ngin'
-let g:dbext_default_profile_mysql_local_ngin = 'type=MYSQL:host=localhost:port=33306:dbname=ngin_development_master'
-let g:dbext_default_profile_mysql_stage_programs = 'type=MYSQL:user=portal_user:passwd=c473H46L69iyWaBgBoczew7L6FrvYXYTL7LiVyGw:host=portal-devdb.sn-ops.com:dbname=portal_production'
+" dbext mysql
+" let g:dbext_default_prompt_for_parameters=1
+" let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
+" let g:dbext_default_profile_mysql_stage_clare = 'type=MYSQL:user=clare_acct:passwd=Uaaw8fR8UVwphE7RR3bmWMT62bPL6v6CNka48ZYx:host=clare-devdb.sn-ops.com:dbname=clare_accounting'
+" let g:dbext_default_profile_mysql_stage_ngin = 'type=MYSQL:user=deploy:passwd=tzGYg46EaQD9pDX8go83KTUznBH66gBRz3PhR9VXc:host=ngin-devdb.sn-ops.com:dbname=ngin'
+" let g:dbext_default_profile_mysql_local_ngin = 'type=MYSQL:host=localhost:port=33306:dbname=ngin_development_master'
+" let g:dbext_default_profile_mysql_stage_programs = 'type=MYSQL:user=portal_user:passwd=c473H46L69iyWaBgBoczew7L6FrvYXYTL7LiVyGw:host=portal-devdb.sn-ops.com:dbname=portal_production'
 
-"dbext sqlite
-let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/Users/teddykim/projects/wingate/db/development.sqlite3'
+" dbext sqlite
+" let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/Users/teddykim/projects/wingate/db/development.sqlite3'
 
 " cursor
 set guicursor=i:ver100-iCursor
 
-" terraform
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
-
 syntax on
 noswapfile
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"

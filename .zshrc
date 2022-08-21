@@ -51,7 +51,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
-export NVM_DIR="/Users/theodorekim/.nvm"
+export NVM_DIR="/Users/teddykim/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Uncomment the following line to disable colors in ls.
@@ -176,13 +176,7 @@ export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
 # source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
 
-# Added by ./setup
-PATH=/Users/theodorekim/.gem/ruby/2.6.0/bin:$PATH
 
 # export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
 
-# Added by serverless binary installer
-export PATH="$HOME/.serverless/bin:$PATH"
-
-# Added by Amplify CLI binary installer
-export PATH="$HOME/.amplify/bin:$PATH"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
