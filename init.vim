@@ -11,10 +11,10 @@ call plug#begin("~/.config/nvim/bundle")
  " gitgutter
  Plug 'airblade/vim-gitgutter'
  " solargraph
- Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'zsh install.sh',
-    \ }
+ " Plug 'autozimu/LanguageClient-neovim', {
+ "    \ 'branch': 'next',
+ "    \ 'do': 'zsh install.sh',
+ "    \ }
  " db
  Plug 'vim-scripts/dbext.vim'
  " tmuxnavigator
