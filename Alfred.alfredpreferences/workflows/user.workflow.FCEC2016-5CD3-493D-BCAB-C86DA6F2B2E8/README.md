@@ -1,5 +1,5 @@
-GitHub Workflow for [Alfred 4](http://www.alfredapp.com)
-==============================
+GitHub Workflow for [Alfred](http://www.alfredapp.com)
+============================
 
 You can search through GitHub (`gh`) and your GitHub Enterprise instance (`ghe`).
 
@@ -50,8 +50,11 @@ To search through your GitHub Enterprise instance replace `gh` by `ghe`.
 * `gh user/repo @branch`
 * `gh user/repo *commit`
 * `gh user/repo /path/to/file`
+* `gh user/repo actions`
 * `gh user/repo admin`
 * `gh user/repo clone`
+* `gh user/repo dev`
+* `gh user/repo discussions`
 * `gh user/repo graphs`
 * `gh user/repo issues`
 * `gh user/repo milestones`
@@ -64,7 +67,6 @@ To search through your GitHub Enterprise instance replace `gh` by `ghe`.
 * `gh user/repo releases`
 * `gh user/repo wiki`
 * `gh user/repo projects`
-* `gh user/repo actions`
 
 ### User commands
 
@@ -94,6 +96,7 @@ To search through your GitHub Enterprise instance replace `gh` by `ghe`.
 * `gh my pulls mentioned`
 * `gh my pulls review requested`
 * `gh my repos`
+* `gh my repos new`
 * `gh my settings`
 * `gh my stars`
 * `gh my gists`
@@ -112,5 +115,3 @@ To search through your GitHub Enterprise instance replace `gh` by `ghe`.
 * `ghe > url` (GitHub Enterprise only)
 * `ghe > generate token` (GitHub Enterprise only)
 * `ghe > enterprise reset` (GitHub Enterprise only)
-
-

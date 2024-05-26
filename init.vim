@@ -2,12 +2,18 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " nerdtree
+ Plug 'preservim/nerdtree'
+ " wiki
+ Plug 'vimwiki/vimwiki'
+ " terraform
+ Plug 'hashivim/vim-terraform'
  " honza ultisnips
  Plug 'honza/vim-snippets'
  " kotlin
- Plug 'udalov/kotlin-vim'
+ " Plug 'udalov/kotlin-vim'
  " plantuml
- Plug 'aklt/plantuml-syntax'
+ " Plug 'aklt/plantuml-syntax'
  " gitgutter
  Plug 'airblade/vim-gitgutter'
  " solargraph
@@ -40,8 +46,8 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'junegunn/seoul256.vim'
  Plug 'jez/vim-colors-solarized'
  " flutter and dart
- Plug 'dart-lang/dart-vim-plugin'
- Plug 'thosakwe/vim-flutter'
+ " Plug 'dart-lang/dart-vim-plugin'
+ " Plug 'thosakwe/vim-flutter'
  " test runner
  Plug 'vim-test/vim-test'
  " bookmarks
@@ -52,7 +58,7 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'tpope/vim-rails'
  " file management
  Plug 'shougo/unite.vim'
- Plug 'shougo/vimfiler.vim'
+ " Plug 'shougo/vimfiler.vim'
  " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
@@ -97,23 +103,26 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
+" NerdTree
+" autocmd VimEnter * NERDTree
 
 " vimfiler
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_expand_jump_to_first_child = 1
+" let g:vimfiler_as_default_explorer = 1
+" let g:vimfiler_expand_jump_to_first_child = 1
 
 " Enable file operation commands.
 " Edit file by tabedit.
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 0,
-      \ })
+" call vimfiler#custom#profile('default', 'context', {
+"       \ 'safe' : 0,
+"       \ })
 
 " mapleader
 let mapleader = "_"
 
 " unite file explorer
-nnoremap <C-e> :VimFiler<CR>
-nnoremap <C-x> :VimFilerExplorer<CR>
+nnoremap <C-e> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 
 " highlight search
 nnoremap <C-n> :set hlsearch!<CR>

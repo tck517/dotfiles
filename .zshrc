@@ -8,6 +8,9 @@ alias be='bundle exec'
 alias cl='clear'
 alias tf='terraform'
 alias hb='hub'
+alias gcb='git checkout -branch'
+alias gcm='git checkout main'
+alias gpl='git pull'
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
