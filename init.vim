@@ -2,25 +2,19 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
- " nerdtree
- Plug 'preservim/nerdtree'
+ " explorer
+ Plug 'nvim-tree/nvim-web-devicons'
+ Plug 'nvim-tree/nvim-tree.lua'
+ " markdown
+ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
  " wiki
  Plug 'vimwiki/vimwiki'
  " terraform
  Plug 'hashivim/vim-terraform'
  " honza ultisnips
  Plug 'honza/vim-snippets'
- " kotlin
- " Plug 'udalov/kotlin-vim'
- " plantuml
- " Plug 'aklt/plantuml-syntax'
  " gitgutter
  Plug 'airblade/vim-gitgutter'
- " solargraph
- " Plug 'autozimu/LanguageClient-neovim', {
- "    \ 'branch': 'next',
- "    \ 'do': 'zsh install.sh',
- "    \ }
  " db
  Plug 'vim-scripts/dbext.vim'
  " tmuxnavigator
@@ -45,9 +39,6 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'morhetz/gruvbox'
  Plug 'junegunn/seoul256.vim'
  Plug 'jez/vim-colors-solarized'
- " flutter and dart
- " Plug 'dart-lang/dart-vim-plugin'
- " Plug 'thosakwe/vim-flutter'
  " test runner
  Plug 'vim-test/vim-test'
  " bookmarks
@@ -56,22 +47,16 @@ call plug#begin("~/.config/nvim/bundle")
  Plug 'tpope/vim-fugitive'
  " rails and ruby
  Plug 'tpope/vim-rails'
- " file management
- Plug 'shougo/unite.vim'
- " Plug 'shougo/vimfiler.vim'
  " fuzzy finder
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  " register
  Plug 'junegunn/vim-peekaboo'
-
-let g:deoplete#enable_at_startup = 1
-" Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/neosnippet-snippets'
 call plug#end()
 
-" neosnippets
-" let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/neosnips'
+let g:deoplete#enable_at_startup = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
 " scratch preview
 set completeopt-=preview
@@ -87,48 +72,16 @@ nnoremap t<C-g> :TestVisit<CR>
 let g:test#javascript#runner = "jest"
 let test#project_root = "/Users/teddykim/projects/gldmdl/src"
 
-" Plugin key-mappings.
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" imap <expr><TAB>
-"  \ pumvisible() ? "\<C-n>" :
-"  \ neosnippet#expandable_or_jumpable() ?
-"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-" NerdTree
-" autocmd VimEnter * NERDTree
-
-" vimfiler
-" let g:vimfiler_as_default_explorer = 1
-" let g:vimfiler_expand_jump_to_first_child = 1
-
-" Enable file operation commands.
-" Edit file by tabedit.
-" call vimfiler#custom#profile('default', 'context', {
-"       \ 'safe' : 0,
-"       \ })
-
 " mapleader
 let mapleader = "_"
 
-" unite file explorer
-nnoremap <C-e> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
 " highlight search
 nnoremap <C-n> :set hlsearch!<CR>
-
-" buffers
-nnoremap <C-b> :Unite buffer<CR>
 
 " Move lines up and down
 nnoremap <S-Up> :m-2<CR>
@@ -136,10 +89,10 @@ nnoremap <S-Down> :m+<CR>
 inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
-" FZF
-nnoremap <C-p> :Files<CR>
-" nnoremap <C-b> :Buffers<CR>
+" buffers
+nnoremap <C-b> :ls<CR>
 
+" FZF
 " rg in files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -153,16 +106,6 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
-
-" rspec
-" nnoremap <leader>rt :!rspec %<CR>
-" nnoremap <leader>ra :!rake spec<CR>
-" nnoremap <leader>tt :!rake test %<CR>
-
-augroup dartfmt
-  autocmd!
-  autocmd BufWritePre *.dart DartFmt
-augroup END
 
 " scheme
 colorscheme gruvbox
@@ -202,7 +145,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
-  SoftPencil 
+  SoftPencil
 endfunction
 
 function! s:goyo_leave()
@@ -328,17 +271,6 @@ nnoremap <leader>co :CocList outline<cr>
 " nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 nnoremap <leader>cs :CocList -I symbols<cr>
 
-" flutter
-" nnoremap <leader>fa :FlutterRun<cr>
-" nnoremap <leader>fq :FlutterQuit<cr>
-" nnoremap <leader>fr :FlutterHotReload<cr>
-" nnoremap <leader>fR :FlutterHotRestart<cr>
-" nnoremap <leader>fD :FlutterVisualDebug<cr>
-
-" zoom
-" nnoremap Zz <c-w>_ \| <c-w>\|
-" nnoremap Zo <c-w>=
-
 " dbext mysql
 " let g:dbext_default_prompt_for_parameters=1
 " let g:dbext_default_profile_mysql_local_portal = 'type=MYSQL:user=root:passwd=:dbname=portal_development_master'
@@ -390,3 +322,21 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+" example
+nmap <C-s> <Plug>MarkdownPreview
+nmap <M-s> <Plug>MarkdownPreviewStop
+nmap <C-p> <Plug>MarkdownPreviewToggle
+
+" buffer nav
+nnoremap <leader>bp :bprevious<CR>
+
+" explorer
+lua << EOF
+require'nvim-tree'.setup {
+    -- Your configuration here
+    -- auto_close = true,  -- Automatically close the tree when it's the last window
+}
+EOF
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
