@@ -2,6 +2,11 @@ set nocompatible
 " filetype off
 
 call plug#begin("~/.config/nvim/bundle")
+ " copilot
+ Plug 'github/copilot.vim'
+ Plug 'zbirenbaum/copilot.lua'
+ Plug 'nvim-lua/plenary.nvim'
+ Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
  " explorer
  Plug 'nvim-tree/nvim-web-devicons'
  Plug 'nvim-tree/nvim-tree.lua'
@@ -167,8 +172,8 @@ highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
 " mermaid
-autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
-au BufReadPost *.mmd set syntax=yaml
+" autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
+" au BufReadPost *.mmd set syntax=yaml
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -335,8 +340,20 @@ lua << EOF
 require'nvim-tree'.setup {
     -- Your configuration here
     -- auto_close = true,  -- Automatically close the tree when it's the last window
+    filters = {
+      dotfiles = true,
+    }
 }
 EOF
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
+
+" copilot
+lua << EOF
+require("CopilotChat").setup {
+  debug = true, -- Enable debugging
+  -- See Configuration section for rest
+}
+EOF
+nnoremap <C-c> :CopilotChatToggl<CR>
