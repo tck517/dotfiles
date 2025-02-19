@@ -4,6 +4,7 @@ export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cach
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
 alias python=python3
+alias pip=pip3
 alias be='bundle exec'
 alias cl='clear'
 alias tf='terraform'
@@ -175,11 +176,13 @@ export GH_USER=tck517@yahoo.com
 export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
 
 export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
-#Start OktaAWS
-# source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
+#Start OktaAWS source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
 
-
+export AWS_ACCESS_KEY_ID=AKIA4ZAI3XZCAUZM47E7
+export AWS_SECRET_ACCESS_KEY=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
 # export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm use 18
