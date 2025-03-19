@@ -172,15 +172,16 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export PATH="$HOME/.bundle/bin:$HOME/.rbenv/bin:$PATH"
 #eval "$(rbenv init -)"
 
-export GH_USER=tck517@yahoo.com
-export GH_PASS=e7d93548ed04d1c83585d938b9952c573e5503ca
+export GH_USER=
+export GH_PASS=
 
-export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
+# export GITHUB_TOKEN=38420da55104201c3d856ef7cfdecbe75ee4f776
+export GITHUB_TOKEN=
 #Start OktaAWS source "/Users/theodorekim/sportsengine/bin/installers/okta-aws/bash_functions_sportsengine"
 #End OktaAWS
 
-export AWS_ACCESS_KEY_ID=AKIA4ZAI3XZCAUZM47E7
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
 # export GOOGLE_APPLICATION_CREDENTIALS="$HOME/hot-prospect.json"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
