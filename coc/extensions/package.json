@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "coc-prettier": ">=9.3.1",
-    "coc-snippets": ">=3.1.1"
-  }
-}
