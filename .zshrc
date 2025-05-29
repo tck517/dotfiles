@@ -1,5 +1,5 @@
 #: If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
+# export PATH=$HOME/Library/Android/sdk/emulator:$HOME/flutter/bin:$HOME/.pub_cache/bin:$HOME/bin:/usr/local/bin:$HOME/.pub-cache/bin:$PATH
 #source /usr/local/bin/virtualenvwrapper.sh
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Make python 3 the default
@@ -186,4 +186,7 @@ export AWS_SECRET_ACCESS_KEY=
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-nvm use 18
+alias claude="/Users/teddykim/.claude/local/claude"
+
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"

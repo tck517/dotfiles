@@ -1,6 +1,8 @@
 set nocompatible
 " filetype off
 call plug#begin("~/.config/nvim/bundle")
+" Flog
+Plug 'rbong/vim-flog'
 " Lorem
 Plug 'wolandark/vim-loremipsum'
 " pull requests
@@ -220,7 +222,9 @@ require("CopilotChat").setup {
 }
 EOF
 nnoremap <C-c> :CopilotChatToggle<CR>
-
-" accept suggestions
+nnoremap <C-r> :CopilotChatReset<CR>
+nnoremap <leader>e :CopilotChat /explain<CR>
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+
+set termguicolors
