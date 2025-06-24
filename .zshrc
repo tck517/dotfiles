@@ -190,3 +190,6 @@ alias claude="/Users/teddykim/.claude/local/claude"
 
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+
+export CLOUDFLARE_API_TOKEN="uh58eHipQ7f_LXWPTiNwJuAezAJH16pqSt6rEBdq"
+export CLOUDFLARE_ACCOUNT_ID="7452f3c4529113d7668c83fb7e693f8a"

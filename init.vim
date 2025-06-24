@@ -111,7 +111,7 @@ command! -bang -nargs=? -complete=dir Files
 
 nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
 
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :Files<CR>
 " scheme
 colorscheme gruvbox
 set background=dark
