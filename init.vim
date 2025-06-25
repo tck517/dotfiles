@@ -204,7 +204,11 @@ nnoremap <leader>bp :bprevious<CR>
 lua << EOF
 require'nvim-tree'.setup {
     -- Your configuration here
-    -- auto_close = true,  -- Automatically close the tree when it's the last window
+    actions = {
+      open_file = {
+        quit_on_open = true,  -- Close explorer when opening a file
+      },
+    },
     filters = {
       dotfiles = true,
     }
