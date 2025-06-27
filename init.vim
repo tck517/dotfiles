@@ -1,103 +1,206 @@
+" ==============================================================================
+" NEOVIM CONFIGURATION
+" ==============================================================================
+
 set nocompatible
-" filetype off
+
+" ==============================================================================
+" PLUGIN DECLARATIONS
+" ==============================================================================
+
 call plug#begin("~/.config/nvim/bundle")
-" Flog
+
+" Git Integration
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'rbong/vim-flog'
-" Lorem
-Plug 'wolandark/vim-loremipsum'
-" pull requests
 Plug 'kristijanhusak/vim-create-pr'
-" copilot
+
+" AI/Copilot
 Plug 'github/copilot.vim'
 Plug 'zbirenbaum/copilot.lua'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
-" explorer
+
+" File Explorer
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
-" markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-" terraform
+
+" Fuzzy Finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Language Support
 Plug 'hashivim/vim-terraform'
-" honza ultisnips
-Plug 'honza/vim-snippets'
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-" db
-Plug 'vim-scripts/dbext.vim'
-" tmuxnavigator
-Plug 'christoomey/vim-tmux-navigator'
-" surround
-Plug 'tpope/vim-surround'
-" status line
-Plug 'vim-airline/vim-airline'
-" code review
-Plug 'AGHost-7/critiq.vim'
-" mermaid viewer
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'FuDesign2008/mermaidViewer.vim'
-" autoclose parentheses
+
+" Editing Enhancements
+Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
-" writing
+Plug 'honza/vim-snippets'
+Plug 'junegunn/vim-peekaboo'
+
+" Writing Tools
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/limelight.vim'
-" themes
+
+" Testing
+Plug 'vim-test/vim-test'
+
+" Navigation
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'MattesGroeger/vim-bookmarks'
+
+" UI/Themes
+Plug 'vim-airline/vim-airline'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 Plug 'jez/vim-colors-solarized'
-" test runner
-Plug 'vim-test/vim-test'
-" bookmarks
-Plug 'MattesGroeger/vim-bookmarks'
-" git
-Plug 'tpope/vim-fugitive'
-" fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" register
-Plug 'junegunn/vim-peekaboo'
+
+" Miscellaneous
+Plug 'AGHost-7/critiq.vim'
+Plug 'vim-scripts/dbext.vim'
+Plug 'wolandark/vim-loremipsum'
+
 call plug#end()
 
-let g:deoplete#enable_at_startup = 1
+" ==============================================================================
+" GENERAL SETTINGS
+" ==============================================================================
+
+filetype plugin indent on
+syntax on
+set noswapfile
+
+" Leader key
+let mapleader = "_"
+
+" Disable netrw (using nvim-tree instead)
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 
-" scratch preview
+" Completion settings
 set completeopt-=preview
+let g:deoplete#enable_at_startup = 1
 
-" test runner
+" Indentation
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" Cursor
+set guicursor=i:ver100-iCursor
+
+" Terminal colors
+set termguicolors
+
+" ==============================================================================
+" THEME CONFIGURATION
+" ==============================================================================
+
+colorscheme gruvbox
+set background=dark
+
+" ==============================================================================
+" PLUGIN CONFIGURATIONS
+" ==============================================================================
+
+" Test Runner
 let test#strategy = "neovim"
+let g:test#javascript#runner = "jest"
+let test#project_root = "/Users/teddykim/projects/gldmdl/src"
+
+" Limelight
+let g:limelight_conceal_ctermfg = '#282828'
+let g:limelight_conceal_ctermfg = 235
+let g:limelight_default_coefficient = 0.7
+let g:limelight_paragraph_span = 2
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+let g:limelight_priority = -1
+
+" Copilot
+let g:copilot_no_tab_map = v:true
+
+" Conceal markers
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" ==============================================================================
+" LUA CONFIGURATIONS
+" ==============================================================================
+
+" NvimTree setup
+lua << EOF
+require'nvim-tree'.setup {
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
+  },
+  filters = {
+    dotfiles = true,
+  }
+}
+EOF
+
+" CopilotChat setup
+lua << EOF
+require("CopilotChat").setup {
+  debug = true,
+}
+EOF
+
+" ==============================================================================
+" KEY MAPPINGS
+" ==============================================================================
+
+" Test runner mappings
 nnoremap t<C-n> :TestNearest<CR>
 nnoremap t<C-f> :TestFile<CR>
 nnoremap t<C-s> :TestSuite<CR>
 nnoremap t<C-l> :TestLast<CR>
 nnoremap t<C-g> :TestVisit<CR>
 
-let g:test#javascript#runner = "jest"
-let test#project_root = "/Users/teddykim/projects/gldmdl/src"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" mapleader
-let mapleader = "_"
-
-" highlight search
+" Search highlighting toggle
 nnoremap <C-n> :set hlsearch!<CR>
 
-" Move lines up and down
+" Line movement
 nnoremap <S-Up> :m-2<CR>
 nnoremap <S-Down> :m+<CR>
 inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
-" buffers
+" Buffer navigation
 nnoremap <C-b> :Buffers<CR>
+nnoremap <leader>bp :bprevious<CR>
 
-" FZF
-" rg in files
+" FZF mappings
+nnoremap <C-p> :Files<CR>
+nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
+
+" Explorer mappings
+nnoremap <C-t> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
+" Copilot mappings
+nnoremap <C-c> :CopilotChatToggle<CR>
+nnoremap <C-r> :CopilotChatReset<CR>
+nnoremap <leader>e :CopilotChat /explain<CR>
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+
+" Documentation preview
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" ==============================================================================
+" CUSTOM COMMANDS
+" ==============================================================================
+
+" FZF with preview
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
@@ -105,43 +208,30 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-" Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-nnoremap <silent> <leader>g :Rg! <C-R><C-W><CR>
+" ==============================================================================
+" AUTOCOMMANDS
+" ==============================================================================
 
-nnoremap <C-p> :Files<CR>
-" scheme
-colorscheme gruvbox
-set background=dark
+" Highlight trailing whitespace
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$/
 
-" limelight
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = '#282828'
-let g:limelight_conceal_ctermfg = 235
+" Goyo integration
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" Color name (:help gui-colors) or RGB color
-" let g:limelight_conceal_guifg = 'bg'
-" let g:limelight_conceal_guifg = '#282828'
+" ==============================================================================
+" FUNCTIONS
+" ==============================================================================
 
-" Default: 0.5
-let g:limelight_default_coefficient = 0.7
+function! CheckBackSpace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 2
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-" Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
-
-" goyo
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
@@ -163,72 +253,3 @@ function! s:goyo_leave()
   set scrolloff=5
   SoftPencil
 endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-" show whitespace
-highlight RedundantSpaces ctermbg=red guibg=red
-match RedundantSpaces /\s\+$/
-
-" mermaid
-" autocmd BufNewFile,BufReadPost *.mmd,*.mermaid set filetype=mermaid
-" au BufReadPost *.mmd set syntax=yaml
-
-filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=2
-" when indenting with '>', use 4 spaces width
-set shiftwidth=2
-" On pressing tab, insert 4 spaces
-set expandtab
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" cursor
-set guicursor=i:ver100-iCursor
-
-syntax on
-noswapfile
-
-function! CheckBackSpace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" buffer nav
-nnoremap <leader>bp :bprevious<CR>
-
-" explorer
-lua << EOF
-require'nvim-tree'.setup {
-    -- Your configuration here
-    actions = {
-      open_file = {
-        quit_on_open = true,  -- Close explorer when opening a file
-      },
-    },
-    filters = {
-      dotfiles = true,
-    }
-}
-EOF
-nnoremap <C-t> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
-
-" copilot
-lua << EOF
-require("CopilotChat").setup {
-  debug = true, -- Enable debugging
-  -- See Configuration section for rest
-}
-EOF
-nnoremap <C-c> :CopilotChatToggle<CR>
-nnoremap <C-r> :CopilotChatReset<CR>
-nnoremap <leader>e :CopilotChat /explain<CR>
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
-
-set termguicolors
