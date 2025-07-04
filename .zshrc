@@ -16,7 +16,7 @@ export AWS_ACCESS_KEY_ID=""
 export AWS_SECRET_ACCESS_KEY=""
 
 # PATH Configuration
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="$HOME/bin:/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 # Aliases
 alias python=python3

@@ -151,6 +151,8 @@ EOF
 lua << EOF
 require("CopilotChat").setup {
   debug = true,
+  show_system_prompt = false,
+  show_help = false,
 }
 EOF
 
@@ -195,6 +197,21 @@ imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 
 " Documentation preview
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Folding mappings
+nnoremap <leader>f :set foldmethod=indent<CR>
+
+" Line number toggle
+nnoremap <leader>n :set number!<CR>
+
+" Writing mode (Goyo + SoftPencil)
+nnoremap <leader>z :Goyo<CR>:SoftPencil<CR>
+
+" Remove whitespace-only lines
+nnoremap <leader>ws :%s/^\s\+$//<CR>
+
+" Remove trailing whitespace
+nnoremap <leader>wt :%s/\s\+$//<CR>
 
 " ==============================================================================
 " CUSTOM COMMANDS
