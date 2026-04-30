@@ -1,2 +1,6 @@
 .DS_Store
 tags
+
+# Secrets — sourced by shell rc files, never committed
+.zsh_secrets
+.config/fish/secrets.fish

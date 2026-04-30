@@ -16,11 +16,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rbong/vim-flog'
 Plug 'kristijanhusak/vim-create-pr'
 
-" AI/Copilot
-Plug 'github/copilot.vim'
-Plug 'zbirenbaum/copilot.lua'
+" AI Assistant
 Plug 'nvim-lua/plenary.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+Plug 'avifenesh/claucode.nvim'
 
 " File Explorer
 Plug 'nvim-tree/nvim-web-devicons'
@@ -33,6 +31,7 @@ Plug 'junegunn/fzf.vim'
 " Language Support
 Plug 'hashivim/vim-terraform'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'ellisonleao/glow.nvim'
 Plug 'FuDesign2008/mermaidViewer.vim'
 
 " Editing Enhancements
@@ -60,7 +59,6 @@ Plug 'junegunn/seoul256.vim'
 Plug 'jez/vim-colors-solarized'
 
 " Miscellaneous
-Plug 'AGHost-7/critiq.vim'
 Plug 'vim-scripts/dbext.vim'
 Plug 'wolandark/vim-loremipsum'
 
@@ -109,8 +107,8 @@ set background=dark
 
 " Test Runner
 let test#strategy = "neovim"
-let g:test#javascript#runner = "jest"
-let test#project_root = "/Users/teddykim/projects/gldmdl/src"
+let g:test#python#runner = "pytest"
+let test#project_root = "/Users/teddykim/projects/vibeacademy/agentic-patterns/tests"
 
 " Limelight
 let g:limelight_conceal_ctermfg = '#282828'
@@ -121,8 +119,6 @@ let g:limelight_bop = '^\s'
 let g:limelight_eop = '\ze\n^\s'
 let g:limelight_priority = -1
 
-" Copilot
-let g:copilot_no_tab_map = v:true
 
 " Conceal markers
 if has('conceal')
@@ -147,13 +143,19 @@ require'nvim-tree'.setup {
 }
 EOF
 
-" CopilotChat setup
+" ClauCode setup
 lua << EOF
-require("CopilotChat").setup {
-  debug = true,
-  show_system_prompt = false,
-  show_help = false,
-}
+require("claucode").setup({
+  command = vim.fn.expand("~/.claude/local/claude"),
+})
+EOF
+
+" Glow markdown preview setup
+lua << EOF
+local ok, glow = pcall(require, 'glow')
+if ok then
+  glow.setup()
+end
 EOF
 
 " ==============================================================================
@@ -189,12 +191,6 @@ nnoremap <C-t> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
 
-" Copilot mappings
-nnoremap <C-c> :CopilotChatToggle<CR>
-nnoremap <C-r> :CopilotChatReset<CR>
-nnoremap <leader>e :CopilotChat /explain<CR>
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-
 " Documentation preview
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -206,6 +202,9 @@ nnoremap <leader>n :set number!<CR>
 
 " Writing mode (Goyo + SoftPencil)
 nnoremap <leader>z :Goyo<CR>:SoftPencil<CR>
+
+" Claude Code mappings
+xnoremap <leader>e :Claude Explain this code<CR>
 
 " Remove whitespace-only lines
 nnoremap <leader>ws :%s/^\s\+$//<CR>
