@@ -13,12 +13,6 @@ call plug#begin("~/.config/nvim/bundle")
 " Git Integration
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'rbong/vim-flog'
-Plug 'kristijanhusak/vim-create-pr'
-
-" AI Assistant
-Plug 'nvim-lua/plenary.nvim'
-Plug 'avifenesh/claucode.nvim'
 
 " File Explorer
 Plug 'nvim-tree/nvim-web-devicons'
@@ -30,9 +24,7 @@ Plug 'junegunn/fzf.vim'
 
 " Language Support
 Plug 'hashivim/vim-terraform'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'ellisonleao/glow.nvim'
-Plug 'FuDesign2008/mermaidViewer.vim'
 
 " Editing Enhancements
 Plug 'tpope/vim-surround'
@@ -55,8 +47,6 @@ Plug 'MattesGroeger/vim-bookmarks'
 " UI/Themes
 Plug 'vim-airline/vim-airline'
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/seoul256.vim'
-Plug 'jez/vim-colors-solarized'
 
 " Miscellaneous
 Plug 'vim-scripts/dbext.vim'
@@ -143,13 +133,6 @@ require'nvim-tree'.setup {
 }
 EOF
 
-" ClauCode setup
-lua << EOF
-require("claucode").setup({
-  command = vim.fn.expand("~/.claude/local/claude"),
-})
-EOF
-
 " Glow markdown preview setup
 lua << EOF
 local ok, glow = pcall(require, 'glow')
@@ -202,9 +185,6 @@ nnoremap <leader>n :set number!<CR>
 
 " Writing mode (Goyo + SoftPencil)
 nnoremap <leader>z :Goyo<CR>:SoftPencil<CR>
-
-" Claude Code mappings
-xnoremap <leader>e :Claude Explain this code<CR>
 
 " Remove whitespace-only lines
 nnoremap <leader>ws :%s/^\s\+$//<CR>

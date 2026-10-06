@@ -9,7 +9,9 @@ set -gx NVM_DIR $HOME/.nvm
 test -f $HOME/.config/fish/secrets.fish; and source $HOME/.config/fish/secrets.fish
 
 # GitHub token from gh CLI (overrides any value from secrets.fish if available)
-set -gx GITHUB_PERSONAL_ACCESS_TOKEN (gh auth token 2>/dev/null)
+if command -q gh
+    set -gx GITHUB_PERSONAL_ACCESS_TOKEN (gh auth token 2>/dev/null)
+end
 
 # Cal.com
 set -gx CAL_COM_EVENT_TYPE_BJJ 123
@@ -21,9 +23,9 @@ set -gx GOOGLE_PROJECT_ID "745576316519"
 # Typefully
 set -gx TYPEFULLY_SOCIAL_SET_ID "78110"
 
-# Agile Flow
-set -gx AGILE_FLOW_WORKER_ACCOUNT "va-worker"
-set -gx AGILE_FLOW_REVIEWER_ACCOUNT "va-reviewer"
+# Gemba Flow (renamed from AGILE_FLOW_* per dual-read shim deprecation)
+set -gx GEMBAFLOW_WORKER_ACCOUNT "va-worker"
+set -gx GEMBAFLOW_REVIEWER_ACCOUNT "va-reviewer"
 
 # FZF
 set -gx FZF_DEFAULT_OPTS "--extended"
@@ -31,4 +33,6 @@ set -gx FZF_DEFAULT_COMMAND "fd --type f"
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 # Sync token to macOS environment for non-shell processes (MCP servers, etc.)
-launchctl setenv GITHUB_PERSONAL_ACCESS_TOKEN (gh auth token 2>/dev/null)
+if command -q gh
+    launchctl setenv GITHUB_PERSONAL_ACCESS_TOKEN (gh auth token 2>/dev/null)
+end
