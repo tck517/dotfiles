@@ -410,7 +410,8 @@ function! s:PRList(args) abort
   call fzf#run(fzf#wrap({
     \ 'source': l:prs,
     \ 'sink': function('s:PRReview'),
-    \ 'options': ['--prompt', 'PRs> ', '--preview', 'env GH_FORCE_TTY=100% gh pr view {1}'],
+    \ 'options': ['--prompt', 'PRs> ', '--preview', 'env GH_FORCE_TTY=100% gh pr view {1}',
+    \             '--preview-window', 'up,70%,wrap'],
     \ }))
 endfunction
 command! -nargs=* PRs call s:PRList(<q-args>)
